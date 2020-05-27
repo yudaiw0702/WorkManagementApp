@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="500" Width="500">
+        mc:Ignorable="d" Title="ステータス詳細" Height="500" Width="500">
 
     <Grid>
         <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間：" VerticalAlignment="Top" Margin="48,56,0,0" FontSize="20"/>
