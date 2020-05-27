@@ -1,12 +1,20 @@
-﻿<Window x:Class="WorkManagementApp.MainWindow" 
+﻿<Window x:Class="WorkManagementApp.StateWindow" 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="445.05" Width="551">
+        mc:Ignorable="d" Title="作業管理アプリ" Height="500" Width="500">
 
     <Grid>
+        <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間：" VerticalAlignment="Top" Margin="48,56,0,0" FontSize="20"/>
+        <Label x:Name="lblTotalTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="226,16,-16,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
+        
+        <TextBlock x:Name="textProportion" HorizontalAlignment="Left" Margin="104,142,0,0" TextWrapping="Wrap" Text="集中している割合：" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="lblProportion" Content="00%" HorizontalAlignment="Left" Height="81" Margin="238,102,-28,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
 
+        <TextBlock x:Name="textGraphTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中力グラフ" VerticalAlignment="Top" Margin="170,203,0,0" FontSize="30"/>
+
+        <Button x:Name="btnStateClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="170,430,0,0" VerticalAlignment="Top" Width="140" Click="State_close_Click"/>
     </Grid>
 </Window>

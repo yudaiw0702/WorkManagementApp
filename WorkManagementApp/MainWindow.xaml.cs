@@ -113,5 +113,11 @@ namespace WorkManagementApp
             lblTime.Content = "00:00:000";
         }
 
+        //別ウィンドウの表示
+        private void State_open_Click(object sender, RoutedEventArgs e)
+        {
+            StateWindow sw = new StateWindow();
+            sw.Show();
+        }
     }
 }
