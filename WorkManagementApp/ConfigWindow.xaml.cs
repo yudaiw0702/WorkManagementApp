@@ -17,9 +17,9 @@ namespace WorkManagementApp
     /// <summary>
     /// Window1.xaml の相互作用ロジック
     /// </summary>
-    public partial class Window1 : Window
+    public partial class ConfigWindow : Window
     {
-        public Window1()
+        public ConfigWindow()
         {
             InitializeComponent();
         }

@@ -7,15 +7,13 @@
         mc:Ignorable="d" Title="作業管理アプリ" Height="180" Width="500">
 
     <Grid>
+        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="0,105,402,0" />
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
         <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30"/>
         <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作業していません" VerticalAlignment="Top" Margin="340,10,0,0" FontSize="15"/>
         <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中していません" VerticalAlignment="Top" Margin="340,35,0,0" FontSize="15"/>
         <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0"/>
 
-        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="37,111,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button x:Name="btnStop" Content="Stop" HorizontalAlignment="Left" Margin="137,111,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="238,111,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         <Label x:Name="lblTime" Content="00:00:000" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
     </Grid>
 </Window>

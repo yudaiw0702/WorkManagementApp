@@ -14,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Kinect;
+using Microsoft.Kinect.VisualGestureBuilder;
+using System.Resources;
 
 namespace WorkManagementApp
 {
@@ -22,95 +25,180 @@ namespace WorkManagementApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
-        int TimeLimit = 30;                 // 制限時間
-        DateTime StartTime;                 // カウント開始時刻
-        TimeSpan nowtimespan;               // Startボタンが押されてから現在までの経過時間
-        TimeSpan oldtimespan;               // 一時停止ボタンが押されるまでに経過した時間の蓄積
+        // Kinect (MultiFrame)
+        private KinectSensor kinect;
+        private MultiSourceFrameReader multiFrameReader;
+
+        // Color
+        private byte[] colorBuffer;
+        private WriteableBitmap colorImage;
+        private FrameDescription colorFrameDescription;
+
+        // Body
+        private Body[] bodies;
+
+        // Gesture Builder
+        private VisualGestureBuilderDatabase gestureDatabase;
+        private VisualGestureBuilderFrameSource gestureFrameSource;
+        private VisualGestureBuilderFrameReader gestureFrameReader;
+
+        // Gestures
+        private Gesture seat;
+        private Gesture right_playphone;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // コンポーネントの状態を初期化　
-            lblTime.Content = "00:00:000";
-            btnStart.IsEnabled = true;
-            btnStop.IsEnabled = false;
-            btnReset.IsEnabled = true;
-
-            // タイマーのインスタンスを生成
-            dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-
-            // タイマー開始
-            TimerStart();
-
+            Loaded += MainWindow_Loaded;
+            Closing += MainWindow_Closing;
         }
 
-        // タイマー Tick処理
-        void dispatcherTimer_Tick(object sender, EventArgs e)
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            nowtimespan = DateTime.Now.Subtract(StartTime);
-            lblTime.Content = oldtimespan.Add(nowtimespan).ToString(@"mm\:ss\:fff");
-
-            if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(0, 0, TimeLimit)) >= 0)
+            // Kinectへの接続
+            try
             {
-                TimerStop();
-                TimerReset();
-                MessageBox.Show(String.Format("{0}秒経過しました。", TimeLimit),
-                                "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
+                kinect = KinectSensor.GetDefault();
+                if (kinect == null)
+                {
+                    throw new Exception("Cannot open kinect v2 sensor.");
+                }
+
+                checkText2.Text = "Connecting Kinect v2 sensor";
+                kinect.Open();
+
+                // 初期設定
+                Initialize();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                Close();
+            }
+        }   
+
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (multiFrameReader != null)
+            {
+                multiFrameReader.Dispose();
+                multiFrameReader = null;
+            }
+            if (gestureFrameReader != null)
+            {
+                gestureFrameReader.Dispose();
+                gestureFrameReader = null;
+            }
+            if (kinect != null)
+            {
+                kinect.Close();
+                kinect = null;
             }
         }
 
-        // ボタンクリック時の処理分岐
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 初期設定
+        /// </summary>
+        private void Initialize()
         {
-            Control ctrl = (Control)sender;
-            switch (ctrl.Name)
+            // ColorImageの初期設定
+            colorFrameDescription = kinect.ColorFrameSource.CreateFrameDescription(ColorImageFormat.Bgra);
+            colorImage = new WriteableBitmap(colorFrameDescription.Width, colorFrameDescription.Height, 96, 96, PixelFormats.Bgra32, null);
+            ImageColor.Source = colorImage;
+
+            // Bodyの初期設定
+            bodies = new Body[kinect.BodyFrameSource.BodyCount];
+
+            // Gesturesの初期設定
+            gestureDatabase = new VisualGestureBuilderDatabase(@"../../Gestures/seat.gbd");
+            gestureFrameSource = new VisualGestureBuilderFrameSource(kinect, 0);
+
+            // 使用するジェスチャーをデータベースから取り出す
+            foreach (var gesture in gestureDatabase.AvailableGestures)
             {
-                case "btnStart":
-                    TimerStart();
-                    break;
+                if (gesture.Name == "seat")
+                {
+                    seat = gesture;
+                }
+                if (gesture.Name == "right_playphone")
+                {
+                    right_playphone = gesture;
+                }
+                this.gestureFrameSource.AddGesture(gesture);
+            }
 
-                case "btnStop":
-                    TimerStop();
-                    break;
+            // ジェスチャーリーダーを開く
+            gestureFrameReader = gestureFrameSource.OpenReader();
+            gestureFrameReader.IsPaused = true;
+            gestureFrameReader.FrameArrived += gestureFrameReader_FrameArrived;
 
-                case "btnReset":
-                    TimerReset();
-                    break;
+            // フレームリーダーを開く (Color / Body)
+            multiFrameReader = kinect.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
+            multiFrameReader.MultiSourceFrameArrived += multiFrameReader_MultiSourceFrameArrived;
 
-                default:
-                    break;
+        }
+
+        private void multiFrameReader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
+        {
+            MultiSourceFrame multiFrame = e.FrameReference.AcquireFrame();
+
+            // Colorの取得と表示
+            using (var colorFrame = multiFrame.ColorFrameReference.AcquireFrame())
+            {
+                if (colorFrame == null)
+                {
+                    return;
+                }
+
+                // RGB画像の表示
+                colorBuffer = new byte[colorFrameDescription.Width * colorFrameDescription.Height * colorFrameDescription.BytesPerPixel];
+                colorFrame.CopyConvertedFrameDataToArray(colorBuffer, ColorImageFormat.Bgra);
+
+                ImageColor.Source = BitmapSource.Create(colorFrameDescription.Width, colorFrameDescription.Height, 96, 96,
+                    PixelFormats.Bgra32, null, colorBuffer, colorFrameDescription.Width * (int)colorFrameDescription.BytesPerPixel);
+
+            }
+
+            // Bodyを１つ探し、ジェスチャー取得の対象として設定
+            if (!gestureFrameSource.IsTrackingIdValid)
+            {
+                using (BodyFrame bodyFrame = multiFrame.BodyFrameReference.AcquireFrame())
+                {
+                    if (bodyFrame != null)
+                    {
+                        bodyFrame.GetAndRefreshBodyData(bodies);
+
+                        foreach (var body in bodies)
+                        {
+                            if (body != null && body.IsTracked)
+                            {
+                                // ジェスチャー判定対象としてbodyを選択
+                                gestureFrameSource.TrackingId = body.TrackingId;
+                                // ジェスチャー判定開始
+                                gestureFrameReader.IsPaused = false;
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        // タイマー操作：開始
-        private void TimerStart()
+        private void gestureFrameReader_FrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
-            btnStart.IsEnabled = false;
-            btnStop.IsEnabled = true;
-            btnReset.IsEnabled = false;
-            StartTime = DateTime.Now;
-            dispatcherTimer.Start();
-        }
 
-        // タイマー操作：停止
-        private void TimerStop()
-        {
-            btnStart.IsEnabled = true;
-            btnStop.IsEnabled = false;
-            btnReset.IsEnabled = true;
-            oldtimespan = oldtimespan.Add(nowtimespan);
-            dispatcherTimer.Stop();
-        }
+            using (var gestureFrame = e.FrameReference.AcquireFrame())
+            {
 
-        // タイマー操作：リセット
-        private void TimerReset()
-        {
-            oldtimespan = new TimeSpan();
-            lblTime.Content = "00:00:000";
+                // ジェスチャーの判定結果がある場合
+                if (gestureFrame != null && gestureFrame.DiscreteGestureResults != null)
+                {
+                    //Discrete
+                    var result = gestureFrame.DiscreteGestureResults[seat];
+                    var result1 = gestureFrame.DiscreteGestureResults[right_playphone];
+                    
+                }
+            }
         }
 
         //別ウィンドウの表示
