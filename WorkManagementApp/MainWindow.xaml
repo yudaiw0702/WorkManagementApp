@@ -9,7 +9,7 @@
     <Grid>
         <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="0,105,402,0" />
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
-        <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30"/>
+        <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30"Click="Config_open_Click"/>
         <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作業していません" VerticalAlignment="Top" Margin="340,10,0,0" FontSize="15"/>
         <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中していません" VerticalAlignment="Top" Margin="340,35,0,0" FontSize="15"/>
         <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0"/>
