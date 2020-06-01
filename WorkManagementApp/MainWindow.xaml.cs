@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using Microsoft.Kinect;
 using Microsoft.Kinect.VisualGestureBuilder;
 using System.Resources;
+using System.ComponentModel.Design;
 
 namespace WorkManagementApp
 {
@@ -45,6 +46,13 @@ namespace WorkManagementApp
         // Gestures
         private Gesture seat;
         private Gesture right_playphone;
+
+        //フラグ
+        public static int sw_seat = 0;
+        static bool flag = false;
+
+        //Time measurement
+        int seat_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -125,6 +133,7 @@ namespace WorkManagementApp
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                checkText2.Text = "Disconnect Kinect v2 sensor";
                 Close();
             }
         }   
@@ -188,6 +197,15 @@ namespace WorkManagementApp
             multiFrameReader = kinect.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
             multiFrameReader.MultiSourceFrameArrived += multiFrameReader_MultiSourceFrameArrived;
 
+            switch (sw_seat)
+            {
+                case 1:
+                    TimerStart();
+                    break;
+                case 2:
+                    TimerStop();
+                    break;
+            }
         }
 
         private void multiFrameReader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -251,14 +269,35 @@ namespace WorkManagementApp
                     //作業してるとき（座っている動作）
                     if (0.9 < resultSeat.Confidence)
                     {
-                        // タイマー開始
-                        TimerStart();
+                        Sw_seat(true);
+                        checkText.Text = "作業しています";
                     }
                     else
                     {
-                        TimerStop();
+                        sw_seat = 2;
+                        checkText.Text = "作業していません";
                     }
                 }
+            }
+        }
+
+        //各ジェスチャーのタイマー処理
+        private void Sw_seat(bool seat_flag)
+        {
+            
+
+            if (seat_flag)
+            {
+                seat_time++; //フレームを更新するごとに増加
+
+                Console.WriteLine($"飲む動作：{seat_time}回");
+
+                if (seat_time >= 20 && flag == false)
+                {
+                    TimerStart();
+                    flag = true;
+                }
+
             }
         }
 
@@ -266,12 +305,14 @@ namespace WorkManagementApp
         private void State_open_Click(object sender, RoutedEventArgs e)
         {
             StateWindow sw = new StateWindow();
+            TimerStart();
             sw.Show();
         }
 
         private void Config_open_Click(object sender, RoutedEventArgs e)
         {
             ConfigWindow cw = new ConfigWindow();
+            TimerStop();
             cw.Show();
         }
     }
