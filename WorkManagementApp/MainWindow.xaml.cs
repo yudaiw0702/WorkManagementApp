@@ -48,11 +48,12 @@ namespace WorkManagementApp
         private Gesture right_playphone;
 
         //フラグ
-        public static int sw_seat = 0;
         public static bool seat_flag = false;
+        public static bool playphoneR_flag = false;
 
         //Time measurement
         int seat_time = 0;
+        int playphoneR_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -257,45 +258,72 @@ namespace WorkManagementApp
                     //作業してるとき（座っている動作）
                     if (0.9 < resultSeat.Confidence)
                     {
-                        Sw_seat(1);
+                        Sw_seat(true);
                         checkText.Text = "作業しています";
                     }
                     else
                     {
-                        Sw_seat(2);
+                        Sw_seat(false);
                         checkText.Text = "作業していません";
+                    }
+
+                    //スマホをいじる動作（集中していない動作）
+                    if (0.3 < resultRPP.Confidence)
+                    {
+                        Sw_playphoneR(true);
                     }
                 }
             }
         }
 
         //各ジェスチャーのチャタリング制御
-        private void Sw_seat(int a)
+        private void Sw_seat(bool a)
         {
-            
-            switch (a)
+
+            if (a)
             {
-                case 1:
-                    seat_time++; //フレームを更新するごとに増加
+                seat_time++; //フレームを更新するごとに増加
 
-                    if (seat_time >= 20 && !seat_flag)
-                    {
-                        TimerStart();
-                        seat_flag = true;
+                if (seat_time >= 20 && !seat_flag)
+                {
+                    TimerStart();
+                    seat_flag = true;
+                    seat_time = 0;
+                }
+            }
+            else
+            {
+                if (seat_flag)
+                {
+                    TimerStop();
+                    seat_flag = false;
+                    seat_time = 0;
+                }
+            }
+        }
 
-                        seat_time = 0;
-                    }
-                    break;
+        private void Sw_playphoneR(bool a)
+        {
 
-                case 2:
-                    if (seat_flag)
-                    {
-                        TimerStop();
-                        seat_flag = false;
+            if (a)
+            {
+                playphoneR_time++; //フレームを更新するごとに増加
 
-                        seat_time = 0;
-                    }
-                    break;
+                if (playphoneR_time >= 20 && !playphoneR_flag)
+                {
+                    TimerStart();
+                    playphoneR_flag = true;
+                    playphoneR_time = 0;
+                }
+            }
+            else
+            {
+                if (playphoneR_flag)
+                {
+                    TimerStop();
+                    playphoneR_flag = false;
+                    playphoneR_time = 0;
+                }
             }
         }
 
