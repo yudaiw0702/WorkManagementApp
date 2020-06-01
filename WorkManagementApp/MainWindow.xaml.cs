@@ -49,7 +49,7 @@ namespace WorkManagementApp
 
         //フラグ
         public static int sw_seat = 0;
-        static bool flag = false;
+        public static bool seat_flag = false;
 
         //Time measurement
         int seat_time = 0;
@@ -85,8 +85,6 @@ namespace WorkManagementApp
 
             if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(0, 0, TimeLimit)) >= 0)
             {
-                TimerStop();
-                TimerReset();
                 MessageBox.Show(String.Format("{0}秒経過しました。", TimeLimit),
                                 "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -196,16 +194,6 @@ namespace WorkManagementApp
             // フレームリーダーを開く (Color / Body)
             multiFrameReader = kinect.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
             multiFrameReader.MultiSourceFrameArrived += multiFrameReader_MultiSourceFrameArrived;
-
-            switch (sw_seat)
-            {
-                case 1:
-                    TimerStart();
-                    break;
-                case 2:
-                    TimerStop();
-                    break;
-            }
         }
 
         private void multiFrameReader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -269,35 +257,45 @@ namespace WorkManagementApp
                     //作業してるとき（座っている動作）
                     if (0.9 < resultSeat.Confidence)
                     {
-                        Sw_seat(true);
+                        Sw_seat(1);
                         checkText.Text = "作業しています";
                     }
                     else
                     {
-                        sw_seat = 2;
+                        Sw_seat(2);
                         checkText.Text = "作業していません";
                     }
                 }
             }
         }
 
-        //各ジェスチャーのタイマー処理
-        private void Sw_seat(bool seat_flag)
+        //各ジェスチャーのチャタリング制御
+        private void Sw_seat(int a)
         {
             
-
-            if (seat_flag)
+            switch (a)
             {
-                seat_time++; //フレームを更新するごとに増加
+                case 1:
+                    seat_time++; //フレームを更新するごとに増加
 
-                Console.WriteLine($"飲む動作：{seat_time}回");
+                    if (seat_time >= 20 && !seat_flag)
+                    {
+                        TimerStart();
+                        seat_flag = true;
 
-                if (seat_time >= 20 && flag == false)
-                {
-                    TimerStart();
-                    flag = true;
-                }
+                        seat_time = 0;
+                    }
+                    break;
 
+                case 2:
+                    if (seat_flag)
+                    {
+                        TimerStop();
+                        seat_flag = false;
+
+                        seat_time = 0;
+                    }
+                    break;
             }
         }
 
