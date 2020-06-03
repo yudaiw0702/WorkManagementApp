@@ -62,12 +62,16 @@ namespace WorkManagementApp
         TimeSpan nowtimespan;               // Startボタンが押されてから現在までの経過時間
         TimeSpan oldtimespan;               // 一時停止ボタンが押されるまでに経過した時間の蓄積
 
+        StateWindow sw;
+
         public MainWindow()
         {
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
+
+            sw = new StateWindow();
 
             // コンポーネントの状態を初期化　
             lblTime.Content = "00:00:000";
@@ -268,9 +272,15 @@ namespace WorkManagementApp
                     }
 
                     //スマホをいじる動作（集中していない動作）
-                    if (0.3 < resultRPP.Confidence)
+                    if (0.3 > resultRPP.Confidence)
                     {
                         Sw_playphoneR(true);
+                        checkText1.Text = "集中しています";
+                    }
+                    else
+                    {
+                        Sw_playphoneR(false);
+                        checkText1.Text = "集中していません";
                     }
                 }
             }
@@ -311,7 +321,7 @@ namespace WorkManagementApp
 
                 if (playphoneR_time >= 20 && !playphoneR_flag)
                 {
-                    TimerStart();
+                    sw.TimerStart();
                     playphoneR_flag = true;
                     playphoneR_time = 0;
                 }
@@ -320,7 +330,7 @@ namespace WorkManagementApp
             {
                 if (playphoneR_flag)
                 {
-                    TimerStop();
+                    sw.TimerStop();
                     playphoneR_flag = false;
                     playphoneR_time = 0;
                 }
@@ -330,7 +340,6 @@ namespace WorkManagementApp
         //別ウィンドウの表示
         private void State_open_Click(object sender, RoutedEventArgs e)
         {
-            StateWindow sw = new StateWindow();
             TimerStart();
             sw.Show();
         }
