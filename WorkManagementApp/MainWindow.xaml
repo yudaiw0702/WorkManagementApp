@@ -14,6 +14,6 @@
         <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中していません" VerticalAlignment="Top" Margin="340,35,0,0" FontSize="15"/>
         <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0"/>
 
-        <Label x:Name="lblTime" Content="00:00:000" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
+        <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
     </Grid>
 </Window>

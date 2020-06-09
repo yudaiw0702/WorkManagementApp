@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d" Title="ステータス詳細" Height="500" Width="500">
 
     <Grid>
-        <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間：" VerticalAlignment="Top" Margin="48,56,0,0" FontSize="20"/>
+        <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間：" VerticalAlignment="Top" Margin="47,56,0,0" FontSize="20"/>
         <Label x:Name="lblTotalTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="226,16,-16,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
         
         <TextBlock x:Name="textProportion" HorizontalAlignment="Left" Margin="104,142,0,0" TextWrapping="Wrap" Text="集中している割合：" VerticalAlignment="Top" FontSize="20"/>
@@ -16,5 +17,18 @@
         <TextBlock x:Name="textGraphTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中力グラフ" VerticalAlignment="Top" Margin="170,203,0,0" FontSize="30"/>
 
         <Button x:Name="btnStateClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="170,430,0,0" VerticalAlignment="Top" Width="140" Click="State_close_Click"/>
+
+        <lvc:CartesianChart Series="{Binding SeriesCollection}" DataClick="CartesianChart_DataClick" Margin="0,243,0,44">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Labels="{Binding Labels}" LabelsRotation="-90">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator IsEnabled="False" Step="1"></lvc:Separator>
+                    </lvc:Axis.Separator>
+                </lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis MinValue="0.0" MaxValue="1.0"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
     </Grid>
 </Window>

@@ -61,38 +61,49 @@ namespace WorkManagementApp
         DateTime StartTime;                 // カウント開始時刻
         TimeSpan nowtimespan;               // Startボタンが押されてから現在までの経過時間
         TimeSpan oldtimespan;               // 一時停止ボタンが押されるまでに経過した時間の蓄積
-
-        StateWindow sw;
+        DispatcherTimer dispatcherTimerState;
+        int StateTimeLimit = 60;
+        DateTime StateStartTime;
+        TimeSpan statenowtimespan;
+        TimeSpan stateoldtimespan;
 
         public MainWindow()
         {
+            StateWindow sw = new StateWindow();
+
             InitializeComponent();
 
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
 
-            sw = new StateWindow();
-
             // コンポーネントの状態を初期化　
-            lblTime.Content = "00:00:000";
+            lblTime.Content = "00:00:00";
+            sw.lblTotalTime.Content = "00:00:00";
 
             // タイマーのインスタンスを生成
             dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimerState = new DispatcherTimer(DispatcherPriority.Normal);
+            dispatcherTimerState.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimerState.Tick += new EventHandler(dispatcherTimer_Tick);
         }
 
         // タイマー Tick処理
         void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            nowtimespan = DateTime.Now.Subtract(StartTime);
-            lblTime.Content = oldtimespan.Add(nowtimespan).ToString(@"mm\:ss\:fff");
+            StateWindow sw = new StateWindow();
 
+            nowtimespan = DateTime.Now.Subtract(StartTime);
+            statenowtimespan = DateTime.Now.Subtract(StateStartTime);
+            lblTime.Content = oldtimespan.Add(nowtimespan).ToString(@"hh\:mm\:ss");
+
+            /* 経過を知らせてくれるけど止まるコード
             if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(0, 0, TimeLimit)) >= 0)
             {
                 MessageBox.Show(String.Format("{0}秒経過しました。", TimeLimit),
                                 "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            }*/
         }
 
         // タイマー操作：開始
@@ -112,8 +123,25 @@ namespace WorkManagementApp
         // タイマー操作：リセット
         private void TimerReset()
         {
+            StateWindow sw = new StateWindow();
+
             oldtimespan = new TimeSpan();
-            lblTime.Content = "00:00:000";
+            stateoldtimespan = new TimeSpan();
+            lblTime.Content = "00:00:00";
+            sw.lblTotalTime.Content = "00:00:00";
+        }
+
+        public void StateTimerStart()
+        {
+            StateStartTime = DateTime.Now;
+            dispatcherTimerState.Start();
+        }
+
+        // タイマー操作：停止
+        public void StateTimerStop()
+        {
+            stateoldtimespan = stateoldtimespan.Add(statenowtimespan);
+            dispatcherTimerState.Stop();
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -139,7 +167,7 @@ namespace WorkManagementApp
                 checkText2.Text = "Disconnect Kinect v2 sensor";
                 Close();
             }
-        }   
+        }
 
         void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -264,21 +292,24 @@ namespace WorkManagementApp
                     {
                         Sw_seat(true);
                         checkText.Text = "作業しています";
+
+                        //スマホをいじる動作（集中していない動作）
+                        if (0.3 > resultRPP.Confidence)
+                        {
+                            Sw_playphoneR(true);
+                            checkText1.Text = "集中しています";
+                        }
+                        else
+                        {
+                            Sw_playphoneR(false);
+                            checkText1.Text = "集中していません";
+                        }
                     }
                     else
                     {
                         Sw_seat(false);
                         checkText.Text = "作業していません";
-                    }
 
-                    //スマホをいじる動作（集中していない動作）
-                    if (0.3 > resultRPP.Confidence)
-                    {
-                        Sw_playphoneR(true);
-                        checkText1.Text = "集中しています";
-                    }
-                    else
-                    {
                         Sw_playphoneR(false);
                         checkText1.Text = "集中していません";
                     }
@@ -314,14 +345,13 @@ namespace WorkManagementApp
 
         private void Sw_playphoneR(bool a)
         {
-
             if (a)
             {
                 playphoneR_time++; //フレームを更新するごとに増加
 
                 if (playphoneR_time >= 20 && !playphoneR_flag)
                 {
-                    sw.TimerStart();
+                    StateTimerStart();
                     playphoneR_flag = true;
                     playphoneR_time = 0;
                 }
@@ -330,7 +360,7 @@ namespace WorkManagementApp
             {
                 if (playphoneR_flag)
                 {
-                    sw.TimerStop();
+                    StateTimerStop();
                     playphoneR_flag = false;
                     playphoneR_time = 0;
                 }
@@ -340,14 +370,15 @@ namespace WorkManagementApp
         //別ウィンドウの表示
         private void State_open_Click(object sender, RoutedEventArgs e)
         {
-            TimerStart();
+            StateWindow sw = new StateWindow();
+
+            sw.lblTotalTime.Content = stateoldtimespan.Add(statenowtimespan).ToString(@"hh\:mm\:ss");
             sw.Show();
         }
 
         private void Config_open_Click(object sender, RoutedEventArgs e)
         {
             ConfigWindow cw = new ConfigWindow();
-            TimerStop();
             cw.Show();
         }
     }

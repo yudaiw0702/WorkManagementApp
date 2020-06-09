@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;  // .Wpf は必要 / .WinForms は必要に応じて
 
 namespace WorkManagementApp
 {
@@ -22,62 +24,49 @@ namespace WorkManagementApp
     /// </summary>
     public partial class StateWindow : Window
     {
-        //タイマー
-        DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
-        int TimeLimit = 30;                 // 制限時間
-        DateTime StartTime;                 // カウント開始時刻
-        TimeSpan nowtimespan;               // Startボタンが押されてから現在までの経過時間
-        TimeSpan oldtimespan;               // 一時停止ボタンが押されるまでに経過した時間の蓄積
-
-        MainWindow mw;
+        // Form1クラスのプロパティとして以下を追加
+        public ChartValues<double> DataValues { get; set; }
+        public List<string> Labels { get; set; }
+        public SeriesCollection SeriesCollection { get; set; }  // 追加するプロパティ
 
         public StateWindow()
         {
             InitializeComponent();
 
-            // コンポーネントの状態を初期化　
-            lblTotalTime.Content = "00:00:000";
+            // コンストラクタのInitializeComponent()の後かForm1_Load内にて
+            Labels = new List<string>();
 
-            // タイマーのインスタンスを生成
-            dispatcherTimer = new DispatcherTimer(DispatcherPriority.Normal);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            List<string> texts = new List<string> { "hogehoge", "fuga", "foo bar" };
+            Random r = new System.Random();
 
-            mw = new MainWindow();
-        }
-
-        // タイマー Tick処理
-        void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            nowtimespan = DateTime.Now.Subtract(StartTime);
-            lblTotalTime.Content = oldtimespan.Add(nowtimespan).ToString(@"mm\:ss\:fff");
-
-            if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(0, 0, TimeLimit)) >= 0)
+            var valarray = new double[50];
+            for (var i = 0; i < valarray.Length; i++)
             {
-                MessageBox.Show(String.Format("{0}秒経過しました。", TimeLimit),
-                                "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
+                valarray[i] = r.Next(80) / 100.0;
+                Labels.Add(String.Format("{0} - {1}", texts[i % texts.Count], i));
             }
+            DataValues = new ChartValues<double>(valarray);
+            // (*2)
+            SeriesCollection = new SeriesCollection
+    {
+        new ColumnSeries
+        {
+            Values = DataValues,  // DataValuesプロパティと紐づける
+            Fill = Brushes.DarkBlue
+        }
+    };
+
+            DataContext = this; // Binding用
         }
 
-        // タイマー操作：開始
-        public void TimerStart()
+        private void CartesianChart_DataClick(object sender, ChartPoint chartpoint)
         {
-            StartTime = DateTime.Now;
-            dispatcherTimer.Start();
-        }
-
-        // タイマー操作：停止
-        public void TimerStop()
-        {
-            oldtimespan = oldtimespan.Add(nowtimespan);
-            dispatcherTimer.Stop();
-        }
-
-        // タイマー操作：リセット
-        public void TimerReset()
-        {
-            oldtimespan = new TimeSpan();
-            lblTotalTime.Content = "00:00:000";
+            // イベントハンドラ cartesianChart1_DataClick にて
+            Console.WriteLine("clicked!");
+            Random r = new System.Random();
+            var n = DataValues.Count;
+            DataValues.Clear();
+            DataValues.AddRange(new double[n].Select(_ => r.Next(80) / 100.0));
         }
 
         private void State_close_Click(object sender, RoutedEventArgs e)
