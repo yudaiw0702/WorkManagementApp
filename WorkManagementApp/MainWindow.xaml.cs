@@ -47,6 +47,14 @@ namespace WorkManagementApp
         private Gesture seat;
         private Gesture right_playphone;
 
+        // Gestures : handsign
+        private Gesture seki;
+        private Gesture drink;
+        private Gesture sodeage;
+        private Gesture sodesage;
+        private Gesture agohige;
+        private Gesture agohige_pose;
+
         //フラグ
         public static bool seat_flag = false;
         public static bool playphoneR_flag = false;
@@ -202,7 +210,7 @@ namespace WorkManagementApp
             bodies = new Body[kinect.BodyFrameSource.BodyCount];
 
             // Gesturesの初期設定
-            gestureDatabase = new VisualGestureBuilderDatabase(@"../../Gestures/seat.gbd");
+            gestureDatabase = new VisualGestureBuilderDatabase(@"../../Gestures/handsign.gbd");
             gestureFrameSource = new VisualGestureBuilderFrameSource(kinect, 0);
 
             // 使用するジェスチャーをデータベースから取り出す
@@ -215,6 +223,30 @@ namespace WorkManagementApp
                 if (gesture.Name == "right_playphone")
                 {
                     right_playphone = gesture;
+                }
+                if (gesture.Name == "drink_pose")
+                {
+                    drink = gesture;
+                }
+                if (gesture.Name == "seki")
+                {
+                    seki = gesture;
+                }
+                if (gesture.Name == "sodeage")
+                {
+                    sodeage = gesture;
+                }
+                if (gesture.Name == "sodesage")
+                {
+                    sodesage = gesture;
+                }
+                if (gesture.Name == "agohige")
+                {
+                    agohige = gesture;
+                }
+                if (gesture.Name == "agohige_pose")
+                {
+                    agohige_pose = gesture;
                 }
                 this.gestureFrameSource.AddGesture(gesture);
             }
@@ -286,7 +318,17 @@ namespace WorkManagementApp
                     //Discrete
                     var resultSeat = gestureFrame.DiscreteGestureResults[seat];
                     var resultRPP = gestureFrame.DiscreteGestureResults[right_playphone];
-                    
+
+                    //Discrete : handsign
+                    var result = gestureFrame.DiscreteGestureResults[seki];
+                    var result2 = gestureFrame.DiscreteGestureResults[agohige_pose];
+                    var result3 = gestureFrame.DiscreteGestureResults[drink];
+
+                    //Continuous
+                    var progressResult = gestureFrame.ContinuousGestureResults[agohige];
+                    var progressResult2 = gestureFrame.ContinuousGestureResults[sodeage];
+                    var progressResult3 = gestureFrame.ContinuousGestureResults[sodesage];
+
                     //作業してるとき（座っている動作）
                     if (0.9 < resultSeat.Confidence)
                     {
@@ -312,6 +354,48 @@ namespace WorkManagementApp
 
                         Sw_playphoneR(false);
                         checkText1.Text = "集中していません";
+                    }
+
+                    //咳をする動作
+                    TextBlock1.Text = "咳確信度: " + result.Confidence.ToString();
+                    if (0.3 < result.Confidence)
+                    {
+                        TextBlock2.Text = "状況：咳をしています";
+                    }
+
+                    //あごひげの動作
+                    //TextBlock7.Text = "あごひげ進捗度: " + progressResult.Progress.ToString();   // 進捗を数値化
+                    TextBlock8.Text = "あごひげ確信度：" + result2.Confidence.ToString();
+                    if (0.3 <= result2.Confidence)
+                    {
+                        int sw_agohige = Sw_agohige(0);
+                        if (sw_agohige == 1)
+                        {
+                            TextBlock7.Text = "状況：あごひげを触っています";
+                            if (0.4 > progressResult.Progress)
+                            {
+                                TextBlock7.Text = "状況：あごひげの手話をしました";
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        Sw_agohige(2);
+                        agohige_time = 0;
+                        TextBlock7.Text = "状況：";
+                    }
+
+                    //飲む動作
+                    TextBlock5.Text = "確信度: " + result3.Confidence.ToString();
+                    if (result3.Confidence >= 0.8)
+                    {
+                        Sw_drink(true);
+                    }
+                    else
+                    {
+                        drink_time = 0;
+                        TextBlock6.Text = "状況：";
                     }
                 }
             }
@@ -366,6 +450,8 @@ namespace WorkManagementApp
                 }
             }
         }
+
+
 
         //別ウィンドウの表示
         private void State_open_Click(object sender, RoutedEventArgs e)
