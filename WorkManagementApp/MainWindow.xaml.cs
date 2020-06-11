@@ -62,6 +62,8 @@ namespace WorkManagementApp
         //Time measurement
         int seat_time = 0;
         int playphoneR_time = 0;
+        int drink_time = 0;
+        int agohige_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -357,24 +359,22 @@ namespace WorkManagementApp
                     }
 
                     //咳をする動作
-                    TextBlock1.Text = "咳確信度: " + result.Confidence.ToString();
                     if (0.3 < result.Confidence)
                     {
-                        TextBlock2.Text = "状況：咳をしています";
+                        Console.WriteLine("咳の手話");
                     }
 
                     //あごひげの動作
-                    //TextBlock7.Text = "あごひげ進捗度: " + progressResult.Progress.ToString();   // 進捗を数値化
-                    TextBlock8.Text = "あごひげ確信度：" + result2.Confidence.ToString();
                     if (0.3 <= result2.Confidence)
                     {
                         int sw_agohige = Sw_agohige(0);
                         if (sw_agohige == 1)
                         {
-                            TextBlock7.Text = "状況：あごひげを触っています";
+                            Console.WriteLine("あごひげに触ってます");
+
                             if (0.4 > progressResult.Progress)
                             {
-                                TextBlock7.Text = "状況：あごひげの手話をしました";
+                                Console.WriteLine("あごひげの手話");
                             }
 
                         }
@@ -383,11 +383,9 @@ namespace WorkManagementApp
                     {
                         Sw_agohige(2);
                         agohige_time = 0;
-                        TextBlock7.Text = "状況：";
                     }
 
                     //飲む動作
-                    TextBlock5.Text = "確信度: " + result3.Confidence.ToString();
                     if (result3.Confidence >= 0.8)
                     {
                         Sw_drink(true);
@@ -395,7 +393,6 @@ namespace WorkManagementApp
                     else
                     {
                         drink_time = 0;
-                        TextBlock6.Text = "状況：";
                     }
                 }
             }
@@ -455,13 +452,11 @@ namespace WorkManagementApp
         {
             if (drink_flag)
             {
-                drink_time++; //フレームを更新するごとに増加
+                drink_time++;
 
-                Console.WriteLine($"飲む動作：{drink_time}回");
-
-                if (drink_time >= 100) //一秒後
+                if (drink_time >= 100)
                 {
-                    TextBlock6.Text = "状況：飲んでいます";
+                    Console.WriteLine("飲む動作");
                 }
 
             }
@@ -471,11 +466,9 @@ namespace WorkManagementApp
         {
             if (agohige_flag == 0)
             {
-                agohige_time++; //フレームを更新するごとに増加
+                agohige_time++;
 
-                Console.WriteLine($"あごひげを触る動作：{agohige_time}回");
-
-                if (agohige_time >= 50) //一秒後
+                if (agohige_time >= 50)
                 {
                     return 1;
                 }

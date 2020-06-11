@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
-using LiveCharts.Wpf;  // .Wpf は必要 / .WinForms は必要に応じて
+using LiveCharts.Wpf;
 
 namespace WorkManagementApp
 {
@@ -61,9 +61,8 @@ namespace WorkManagementApp
 
         private void CartesianChart_DataClick(object sender, ChartPoint chartpoint)
         {
-            // イベントハンドラ cartesianChart1_DataClick にて
             Console.WriteLine("clicked!");
-            Random r = new System.Random();
+            Random r = new Random();
             var n = DataValues.Count;
             DataValues.Clear();
             DataValues.AddRange(new double[n].Select(_ => r.Next(80) / 100.0));
