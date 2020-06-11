@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using System.Windows.Threading;
 
 namespace WorkManagementApp
 {
@@ -27,6 +29,21 @@ namespace WorkManagementApp
         private void Config_close_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnApply_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
