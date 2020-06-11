@@ -451,7 +451,39 @@ namespace WorkManagementApp
             }
         }
 
+        private void Sw_drink(bool drink_flag)
+        {
+            if (drink_flag)
+            {
+                drink_time++; //フレームを更新するごとに増加
 
+                Console.WriteLine($"飲む動作：{drink_time}回");
+
+                if (drink_time >= 100) //一秒後
+                {
+                    TextBlock6.Text = "状況：飲んでいます";
+                }
+
+            }
+        }
+
+        private int Sw_agohige(int agohige_flag)
+        {
+            if (agohige_flag == 0)
+            {
+                agohige_time++; //フレームを更新するごとに増加
+
+                Console.WriteLine($"あごひげを触る動作：{agohige_time}回");
+
+                if (agohige_time >= 50) //一秒後
+                {
+                    return 1;
+                }
+
+            }
+            return 0;
+
+        }
 
         //別ウィンドウの表示
         private void State_open_Click(object sender, RoutedEventArgs e)
