@@ -14,7 +14,7 @@
         <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="目標作業時間：" VerticalAlignment="Top" Margin="104,19,0,0" FontSize="15" Grid.ColumnSpan="2" Height="20" Width="105"/>
         <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="目標集中時間：" VerticalAlignment="Top" Margin="104,84,0,0" FontSize="15" Grid.ColumnSpan="2" Height="20" Width="105"/>
 
-        <Button x:Name="btnConfigClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="10,379,0,0" VerticalAlignment="Top" Width="140"/>
+        <Button x:Name="btnConfigClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="10,379,0,0" VerticalAlignment="Top" Width="140" Click="Config_close_Click"/>
         <Button x:Name="btnCancel" Content="キャンセル" HorizontalAlignment="Left" Height="30" Margin="170,379,0,0" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2"/>
         <Button x:Name="btnApply" Content="適用" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="149,379,0,0" Height="30" Grid.Column="1"/>
     </Grid>

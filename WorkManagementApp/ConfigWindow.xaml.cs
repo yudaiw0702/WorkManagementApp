@@ -24,7 +24,7 @@ namespace WorkManagementApp
             InitializeComponent();
         }
 
-        private void btnConfigClose(object sender, RoutedEventArgs e)
+        private void Config_close_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
