@@ -36,14 +36,27 @@ namespace WorkManagementApp
             // コンストラクタのInitializeComponent()の後かForm1_Load内にて
             Labels = new List<string>();
 
-            List<string> texts = new List<string> { "hogehoge", "fuga", "foo bar" };
+            List<string> texts = new List<string> { "時" };
             Random r = new System.Random();
 
-            var valarray = new double[50];
+            DateTime dt = DateTime.Now;
+            Console.WriteLine(dt);
+
+            Console.WriteLine(dt.Year + "年");
+            Console.WriteLine(dt.Month + "月");
+            Console.WriteLine(dt.Day + "日");
+            Console.WriteLine(dt.Hour + "時");
+            Console.WriteLine(dt.Minute + "分");
+            Console.WriteLine(dt.Second + "秒");
+            Console.WriteLine(dt.Millisecond + "ミリ秒");
+
+           
+
+            var valarray = new double[12];
             for (var i = 0; i < valarray.Length; i++)
             {
-                valarray[i] = r.Next(80) / 100.0;
-                Labels.Add(String.Format("{0} - {1}", texts[i % texts.Count], i));
+                valarray[i] = r.Next(60) / 1.0;
+                Labels.Add(String.Format("{0} {1}", i, texts[i % texts.Count]));
             }
             DataValues = new ChartValues<double>(valarray);
             // (*2)
@@ -65,7 +78,7 @@ namespace WorkManagementApp
             Random r = new Random();
             var n = DataValues.Count;
             DataValues.Clear();
-            DataValues.AddRange(new double[n].Select(_ => r.Next(80) / 100.0));
+            DataValues.AddRange(new double[n].Select(_ => r.Next(60) / 1.0));
         }
 
         private void State_close_Click(object sender, RoutedEventArgs e)
@@ -74,3 +87,10 @@ namespace WorkManagementApp
         }
     }
 }
+
+/*時間ごとに作業時間を分けるグラフメモ
+ *現在時刻以下の時間グラフは動作していなければならない
+ *常に時間取得をする必要がある？＝常に開いているメインウィンドウで現在時刻を動かす
+ *１時間ごとにグラフを表示していく
+ *１時間経過後の作業している時間と１時間前の時間で差を計算する、それをグラフで表示
+*/

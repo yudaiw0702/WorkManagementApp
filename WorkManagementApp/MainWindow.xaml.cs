@@ -77,6 +77,11 @@ namespace WorkManagementApp
         TimeSpan statenowtimespan;
         TimeSpan stateoldtimespan;
 
+        DispatcherTimer glafTimer;
+        TimeSpan nowglaftimespan;
+        TimeSpan oldglaftimespan;
+        TimeSpan subtracttimespan;
+
         public MainWindow()
         {
             StateWindow sw = new StateWindow();
@@ -97,6 +102,24 @@ namespace WorkManagementApp
             dispatcherTimerState = new DispatcherTimer(DispatcherPriority.Normal);
             dispatcherTimerState.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimerState.Tick += new EventHandler(dispatcherTimer_Tick);
+
+            //グラフでつかうタイマーインスタンス
+            glafTimer = new DispatcherTimer(DispatcherPriority.Normal);
+            glafTimer.Tick += new EventHandler(glafTimer_Tick);
+            glafTimer.Interval += new TimeSpan(1, 0, 0);
+
+            glafTimer.Start();
+            oldglaftimespan = oldtimespan.Add(nowtimespan);
+        }
+
+        //１時間内で作業した時間を表示する
+        private void glafTimer_Tick(object sender, EventArgs e)
+        {
+            nowglaftimespan = oldtimespan.Add(nowtimespan);
+            subtracttimespan = nowglaftimespan.Subtract(oldtimespan);
+            string glafTimeSpan = subtracttimespan.ToString(@"mm");
+
+            oldglaftimespan = oldtimespan.Add(nowtimespan);
         }
 
         // タイマー Tick処理
@@ -108,8 +131,8 @@ namespace WorkManagementApp
             statenowtimespan = DateTime.Now.Subtract(StateStartTime);
             lblTime.Content = oldtimespan.Add(nowtimespan).ToString(@"hh\:mm\:ss");
 
-            /* 経過を知らせてくれるけど止まるコード
-            if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(0, 0, TimeLimit)) >= 0)
+            //経過を知らせてくれるけど止まるコード
+            /*if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(0, 0, TimeLimit)) >= 0)
             {
                 MessageBox.Show(String.Format("{0}秒経過しました。", TimeLimit),
                                 "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);

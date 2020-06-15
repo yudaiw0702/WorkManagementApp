@@ -8,11 +8,11 @@
         mc:Ignorable="d" Title="ステータス詳細" Height="500" Width="500">
 
     <Grid>
-        <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間：" VerticalAlignment="Top" Margin="47,56,0,0" FontSize="20"/>
-        <Label x:Name="lblTotalTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="226,16,-16,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
+        <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間" VerticalAlignment="Top" Margin="138,10,0,0" FontSize="20"/>
+        <Label x:Name="lblTotalTime" Content="00:00:00" HorizontalAlignment="Left" Height="81" Margin="104,27,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
         
-        <TextBlock x:Name="textProportion" HorizontalAlignment="Left" Margin="104,142,0,0" TextWrapping="Wrap" Text="集中している割合：" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="lblProportion" Content="00%" HorizontalAlignment="Left" Height="81" Margin="238,102,-28,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
+        <TextBlock x:Name="textProportion" HorizontalAlignment="Left" Margin="89,148,0,0" TextWrapping="Wrap" Text="集中している割合：" VerticalAlignment="Top" FontSize="20"/>
+        <Label x:Name="lblProportion" Content="00%" HorizontalAlignment="Left" Height="81" Margin="182,108,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
 
         <TextBlock x:Name="textGraphTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中力グラフ" VerticalAlignment="Top" Margin="170,203,0,0" FontSize="30"/>
 
@@ -27,7 +27,7 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis MinValue="0.0" MaxValue="1.0"></lvc:Axis>
+                <lvc:Axis MinValue="0" MaxValue="60"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
         </lvc:CartesianChart>
     </Grid>
