@@ -39,19 +39,6 @@ namespace WorkManagementApp
             List<string> texts = new List<string> { "時" };
             Random r = new System.Random();
 
-            DateTime dt = DateTime.Now;
-            Console.WriteLine(dt);
-
-            Console.WriteLine(dt.Year + "年");
-            Console.WriteLine(dt.Month + "月");
-            Console.WriteLine(dt.Day + "日");
-            Console.WriteLine(dt.Hour + "時");
-            Console.WriteLine(dt.Minute + "分");
-            Console.WriteLine(dt.Second + "秒");
-            Console.WriteLine(dt.Millisecond + "ミリ秒");
-
-           
-
             var valarray = new double[12];
             for (var i = 0; i < valarray.Length; i++)
             {

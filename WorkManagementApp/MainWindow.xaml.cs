@@ -81,6 +81,7 @@ namespace WorkManagementApp
         TimeSpan nowglaftimespan;
         TimeSpan oldglaftimespan;
         TimeSpan subtracttimespan;
+        string glafTimeSpan;
 
         public MainWindow()
         {
@@ -117,9 +118,12 @@ namespace WorkManagementApp
         {
             nowglaftimespan = oldtimespan.Add(nowtimespan);
             subtracttimespan = nowglaftimespan.Subtract(oldtimespan);
-            string glafTimeSpan = subtracttimespan.ToString(@"mm");
+            glafTimeSpan = subtracttimespan.ToString(@"mm");
 
             oldglaftimespan = oldtimespan.Add(nowtimespan);
+
+            /*現在時刻ごとに１２個glafTimeSpanを用意しておいて、
+             設定画面を開くときに受け渡せるようにしておく*/
         }
 
         // タイマー Tick処理

@@ -35,5 +35,13 @@ namespace WorkManagementApp
         {
 
         }
+
+        private void BtnApply_Click(object sender, RoutedEventArgs e)
+        {
+            string value_string;
+
+            value_string = String.Format("{0:hh:mm}", timePicker.Value);
+            Console.WriteLine(value_string);
+        }
     }
 }
