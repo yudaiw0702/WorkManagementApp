@@ -15,5 +15,8 @@
         <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0"/>
 
         <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
+        <Label x:Name="lblTime_Copy" Content="111" HorizontalAlignment="Left" Height="30" Margin="258,102,0,0" VerticalAlignment="Top" Width="46" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" RenderTransformOrigin="0.497,0.529"/>
+        <TextBox x:Name="TextBox1"  HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="aaaaa" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ReceiveTextBox"  HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="aaaaa" VerticalAlignment="Top" Width="120" Margin="0,23,0,0"/>
     </Grid>
 </Window>

@@ -19,6 +19,7 @@ using Microsoft.Kinect.VisualGestureBuilder;
 using System.Resources;
 using System.ComponentModel.Design;
 
+
 namespace WorkManagementApp
 {
     /// <summary>
@@ -67,12 +68,13 @@ namespace WorkManagementApp
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
-        int TimeLimit = 30;                 // 制限時間
+        // 目標時間
+        public int timeLimitMM = 999;
+        public int timeLimitHH = 999;
         DateTime StartTime;                 // カウント開始時刻
         TimeSpan nowtimespan;               // Startボタンが押されてから現在までの経過時間
         TimeSpan oldtimespan;               // 一時停止ボタンが押されるまでに経過した時間の蓄積
         DispatcherTimer dispatcherTimerState;
-        int StateTimeLimit = 60;
         DateTime StateStartTime;
         TimeSpan statenowtimespan;
         TimeSpan stateoldtimespan;
@@ -82,6 +84,10 @@ namespace WorkManagementApp
         TimeSpan oldglaftimespan;
         TimeSpan subtracttimespan;
         string glafTimeSpan;
+
+        public int TimeLimitHH { get; set; }
+        public int TimeLimitMM { get; set; }
+        public string SetText { set; get; }
 
         public MainWindow()
         {
@@ -141,6 +147,14 @@ namespace WorkManagementApp
                 MessageBox.Show(String.Format("{0}秒経過しました。", TimeLimit),
                                 "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
             }*/
+
+            if (TimeSpan.Compare(oldtimespan.Add(nowtimespan), new TimeSpan(timeLimitHH, timeLimitMM, 0)) >= 0)
+            {
+                MessageBox.Show(String.Format("目標作業時間に到達しました、おめでとうございます！"),
+                                "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            //メッセージボックスを出すとMainWindowが停止する、目標時間達成の知らせが出続ける
         }
 
         // タイマー操作：開始
@@ -512,12 +526,29 @@ namespace WorkManagementApp
 
             sw.lblTotalTime.Content = stateoldtimespan.Add(statenowtimespan).ToString(@"hh\:mm\:ss");
             sw.Show();
+
+            lblTime_Copy.Content = TimeLimitHH;
+            Console.WriteLine(timeLimitHH);
+            Console.WriteLine(TimeLimitMM);
+            
         }
 
         private void Config_open_Click(object sender, RoutedEventArgs e)
         {
+            TimerStart();
+            StateTimerStart();
             ConfigWindow cw = new ConfigWindow();
-            cw.Show();
+
+            cw.SetParent(this);
+            cw.ShowDialog();
+        }
+
+        public void StrTimeLimit()
+        {
+            timeLimitHH = TimeLimitHH;
+            timeLimitMM = TimeLimitMM;
         }
     }
 }
+
+//作業している時間と集中している時間でズレが生じる原因はジェスチャー判別にある

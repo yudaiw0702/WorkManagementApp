@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
+using System.Data.SqlTypes;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WorkManagementApp
 {
@@ -21,6 +23,10 @@ namespace WorkManagementApp
     /// </summary>
     public partial class ConfigWindow : Window
     {
+        public int TimeLimitHH { get; set; }
+        public int TimeLimitMM { get; set; }
+        public string strAddress { set; get; }
+
         public ConfigWindow()
         {
             InitializeComponent();
@@ -28,20 +34,43 @@ namespace WorkManagementApp
 
         private void Config_close_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
 
         }
+        MainWindow mw;
+        public void SetParent(MainWindow parent)
+        {
+            mw = parent;
+        }
 
         private void BtnApply_Click(object sender, RoutedEventArgs e)
         {
-            string value_string;
 
-            value_string = String.Format("{0:hh:mm}", timePicker.Value);
-            Console.WriteLine(value_string);
+            string timePickMM;
+            string timePickHH;
+
+            timePickHH = string.Format("{0:hh}", timePicker.Value);
+            timePickMM = string.Format("{0:mm}", timePicker.Value);
+
+            //int型に変換
+            int h = int.Parse(timePickHH);
+            int m = int.Parse(timePickMM);
+
+            if (h == 12)
+                h = 0;
+
+            //MainWindowクラスのTimeLimitに設定した時間を代入
+            mw.SetText = strAddress;
+            mw.TimeLimitHH = h;
+            mw.TimeLimitMM = m;
+
+            mw.StrTimeLimit();
+
+            Close();
         }
     }
 }
