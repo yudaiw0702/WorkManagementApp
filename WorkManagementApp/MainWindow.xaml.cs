@@ -403,6 +403,8 @@ namespace WorkManagementApp
                     if (0.3 < result.Confidence)
                     {
                         Console.WriteLine("咳の手話");
+                        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
+                        player.Play();
                     }
 
                     //あごひげの動作
@@ -416,6 +418,7 @@ namespace WorkManagementApp
                             if (0.4 > progressResult.Progress)
                             {
                                 Console.WriteLine("あごひげの手話");
+                                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/agohige.wav");
                             }
 
                         }
@@ -456,7 +459,7 @@ namespace WorkManagementApp
             }
             else
             {
-                if (seat_flag)
+                if (seat_time >= 20 && seat_flag)
                 {
                     TimerStop();
                     seat_flag = false;
@@ -498,6 +501,8 @@ namespace WorkManagementApp
                 if (drink_time >= 100)
                 {
                     Console.WriteLine("飲む動作");
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/drink.wav");
+
                 }
 
             }
@@ -527,7 +532,6 @@ namespace WorkManagementApp
             sw.lblTotalTime.Content = stateoldtimespan.Add(statenowtimespan).ToString(@"hh\:mm\:ss");
             sw.Show();
 
-            lblTime_Copy.Content = TimeLimitHH;
             Console.WriteLine(timeLimitHH);
             Console.WriteLine(TimeLimitMM);
             

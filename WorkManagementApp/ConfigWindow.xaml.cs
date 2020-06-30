@@ -34,7 +34,7 @@ namespace WorkManagementApp
 
         private void Config_close_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)

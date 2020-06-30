@@ -16,6 +16,5 @@
         <CheckBox x:Name="checkBox" Content="通知音をなくす" HorizontalAlignment="Left" Margin="106,110,0,0" VerticalAlignment="Top"/>
         <xctk:TimePicker x:Name="timePicker" HorizontalAlignment="Left" Margin="159,53,0,0" VerticalAlignment="Top" Height="36" Width="169" FontSize="18"/>
         <CheckBox x:Name="checkBox_Copy" Content="１時間の通知をなくす" HorizontalAlignment="Left" Margin="257,110,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
