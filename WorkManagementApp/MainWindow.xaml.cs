@@ -47,6 +47,7 @@ namespace WorkManagementApp
         // Gestures
         private Gesture seat;
         private Gesture right_playphone;
+        private Gesture left_playphone;
 
         // Gestures : handsign
         private Gesture seki;
@@ -59,6 +60,7 @@ namespace WorkManagementApp
         //フラグ
         public static bool seat_flag = false;
         public static bool playphoneR_flag = false;
+        public static bool playphoneL_flag = false;
 
         //Time measurement
         int seat_time = 0;
@@ -267,6 +269,10 @@ namespace WorkManagementApp
                 {
                     right_playphone = gesture;
                 }
+                if (gesture.Name == "left_playphone")
+                {
+                    left_playphone = gesture;
+                }
                 if (gesture.Name == "drink_pose")
                 {
                     drink = gesture;
@@ -361,6 +367,7 @@ namespace WorkManagementApp
                     //Discrete
                     var resultSeat = gestureFrame.DiscreteGestureResults[seat];
                     var resultRPP = gestureFrame.DiscreteGestureResults[right_playphone];
+                    var resultLPP = gestureFrame.DiscreteGestureResults[left_playphone];
 
                     //Discrete : handsign
                     var result = gestureFrame.DiscreteGestureResults[seki];
@@ -376,7 +383,8 @@ namespace WorkManagementApp
                     textBlock1.Text = "咳" + result.Confidence.ToString();
                     textBlock2.Text = "あごひげ" + result2.Confidence.ToString();
                     textBlock3.Text = "飲む" + result3.Confidence.ToString();
-                    textBlock4.Text = "スマホ操作" + resultRPP.Confidence.ToString();
+                    textBlock4.Text = "スマホ操作R" + resultRPP.Confidence.ToString();
+                    textBlock5.Text = "スマホ操作L" + resultLPP.Confidence.ToString();
 
                     //作業してるとき（座っている動作）
                     if (0.8 < resultSeat.Confidence)
@@ -384,23 +392,25 @@ namespace WorkManagementApp
                         Sw_seat(true);
                         checkText.Text = "作業しています";
 
-                        //スマホをいじる動作（集中していない動作）
-                        if (0.3 > resultRPP.Confidence)
-                        {
-                            Sw_playphoneR(true);
-                            checkText1.Text = "集中しています";
-                        }
-                        else
-                        {
-                            Sw_playphoneR(false);
-                            checkText1.Text = "集中していません";
-                        }
+                        
                     }
                     else if(resultSeat.Confidence < 0.5)
                     {
                         Sw_seat(false);
                         checkText.Text = "作業していません";
 
+                        Sw_playphoneR(false);
+                        checkText1.Text = "集中していません";
+                    }
+
+                    //スマホをいじる動作（集中していない動作）
+                    if ((0.2 > resultRPP.Confidence && 0.8 < resultSeat.Confidence) || (0.2 > resultLPP.Confidence && 0.8 < resultSeat.Confidence))
+                    {
+                        Sw_playphoneR(true);
+                        checkText1.Text = "集中しています";
+                    }
+                    else if(0.3 < resultRPP.Confidence || 0.3 < resultLPP.Confidence)
+                    {
                         Sw_playphoneR(false);
                         checkText1.Text = "集中していません";
                     }
@@ -457,7 +467,7 @@ namespace WorkManagementApp
             {
                 seat_time++; //フレームを更新するごとに増加
 
-                if (seat_time >= 20 && !seat_flag)
+                if (seat_time >= 30 && !seat_flag)
                 {
                     TimerStart();
                     seat_flag = true;
@@ -466,7 +476,9 @@ namespace WorkManagementApp
             }
             else
             {
-                if (seat_time >= 20 && seat_flag)
+                seat_time++;
+
+                if (seat_time >= 30 && seat_flag)
                 {
                     TimerStop();
                     seat_flag = false;
