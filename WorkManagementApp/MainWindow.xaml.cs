@@ -369,11 +369,17 @@ namespace WorkManagementApp
 
                     //Continuous
                     var progressResult = gestureFrame.ContinuousGestureResults[agohige];
-                    var progressResult2 = gestureFrame.ContinuousGestureResults[sodeage];
-                    var progressResult3 = gestureFrame.ContinuousGestureResults[sodesage];
+                    //var progressResult2 = gestureFrame.ContinuousGestureResults[sodeage];
+                    //var progressResult3 = gestureFrame.ContinuousGestureResults[sodesage];
+
+                    textBlock.Text = "座ってる動作" + resultSeat.Confidence.ToString();
+                    textBlock1.Text = "咳" + result.Confidence.ToString();
+                    textBlock2.Text = "あごひげ" + result2.Confidence.ToString();
+                    textBlock3.Text = "飲む" + result3.Confidence.ToString();
+                    textBlock4.Text = "スマホ操作" + resultRPP.Confidence.ToString();
 
                     //作業してるとき（座っている動作）
-                    if (0.9 < resultSeat.Confidence)
+                    if (0.8 < resultSeat.Confidence)
                     {
                         Sw_seat(true);
                         checkText.Text = "作業しています";
@@ -390,7 +396,7 @@ namespace WorkManagementApp
                             checkText1.Text = "集中していません";
                         }
                     }
-                    else
+                    else if(resultSeat.Confidence < 0.5)
                     {
                         Sw_seat(false);
                         checkText.Text = "作業していません";
@@ -419,6 +425,7 @@ namespace WorkManagementApp
                             {
                                 Console.WriteLine("あごひげの手話");
                                 System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/agohige.wav");
+                                player.Play();
                             }
 
                         }
@@ -430,7 +437,7 @@ namespace WorkManagementApp
                     }
 
                     //飲む動作
-                    if (result3.Confidence >= 0.8)
+                    if (result3.Confidence >= 0.7)
                     {
                         Sw_drink(true);
                     }
@@ -498,11 +505,13 @@ namespace WorkManagementApp
             {
                 drink_time++;
 
-                if (drink_time >= 100)
+                if (drink_time >= 20)
                 {
                     Console.WriteLine("飲む動作");
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/drink.wav");
+                    player.Play();
 
+                    drink_time = 0;
                 }
 
             }
