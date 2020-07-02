@@ -18,7 +18,7 @@ using Microsoft.Kinect;
 using Microsoft.Kinect.VisualGestureBuilder;
 using System.Resources;
 using System.ComponentModel.Design;
-
+using System.Net;
 
 namespace WorkManagementApp
 {
@@ -67,9 +67,11 @@ namespace WorkManagementApp
         int playphoneR_time = 0;
         int drink_time = 0;
         int agohige_time = 0;
+        int seki_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
+
         // 目標時間
         public int timeLimitMM = 999;
         public int timeLimitHH = 999;
@@ -418,9 +420,11 @@ namespace WorkManagementApp
                     //咳をする動作
                     if (0.3 < result.Confidence)
                     {
-                        Console.WriteLine("咳の手話");
-                        System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
-                        player.Play();
+                        Sw_seki(true);  
+                    }
+                    else
+                    {
+                        seki_time = 0;
                     }
 
                     //あごひげの動作
@@ -517,13 +521,31 @@ namespace WorkManagementApp
             {
                 drink_time++;
 
-                if (drink_time >= 20)
+                if (drink_time == 20)
                 {
                     Console.WriteLine("飲む動作");
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/drink.wav");
                     player.Play();
 
                     drink_time = 0;
+                }
+
+            }
+        }
+
+        private void Sw_seki(bool seki_flag)
+        {
+            if (seki_flag)
+            {
+                seki_time++;
+
+                if (seki_time == 20)
+                {
+                    Console.WriteLine("咳の手話");
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
+                    player.Play();
+
+                    seki_time = 0;
                 }
 
             }
