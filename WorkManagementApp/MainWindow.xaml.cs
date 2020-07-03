@@ -411,7 +411,8 @@ namespace WorkManagementApp
                         Sw_playphoneR(true);
                         checkText1.Text = "集中しています";
                     }
-                    else if(0.3 < resultRPP.Confidence || 0.3 < resultLPP.Confidence)
+                     
+                    if(0.2 < resultRPP.Confidence || 0.2 < resultLPP.Confidence)
                     {
                         Sw_playphoneR(false);
                         checkText1.Text = "集中していません";
