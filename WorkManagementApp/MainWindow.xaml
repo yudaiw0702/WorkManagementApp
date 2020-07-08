@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="405" Width="500">
+        mc:Ignorable="d" Title="作業管理アプリ" Height="191" Width="500">
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Height="161" VerticalAlignment="Top">
         <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="324,265,10,10" />
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
         <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="Config_open_Click"/>
@@ -15,11 +15,6 @@
         <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0"/>
 
         <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="49,174,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="49,203,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="49,232,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="49,261,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="49,290,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18"/>
-        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" Margin="49,319,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" FontSize="18"/>
+        
     </Grid>
 </Window>
