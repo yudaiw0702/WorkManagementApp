@@ -5,30 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        mc:Ignorable="d" Title="ステータス詳細" Height="500" Width="500">
+        mc:Ignorable="d" Title="ステータス詳細" Height="406" Width="500">
 
-    <Grid>
+    <Grid Margin="0,0,0,-2">
         <TextBlock x:Name="textTotalTime" HorizontalAlignment="Left" TextWrapping="Wrap" Text="一日の作業している時間" VerticalAlignment="Top" Margin="138,10,0,0" FontSize="20"/>
         <Label x:Name="lblTotalTime" Content="00:00:00" HorizontalAlignment="Left" Height="81" Margin="104,27,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
-        
+
         <TextBlock x:Name="textProportion" HorizontalAlignment="Left" Margin="89,148,0,0" TextWrapping="Wrap" Text="集中している割合：" VerticalAlignment="Top" FontSize="20"/>
         <Label x:Name="lblProportion" Content="00%" HorizontalAlignment="Left" Height="81" Margin="182,108,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
 
-        <TextBlock x:Name="textGraphTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中力グラフ" VerticalAlignment="Top" Margin="170,203,0,0" FontSize="30"/>
+        <TextBlock x:Name="textGraphTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中力を持続させるヒント" VerticalAlignment="Top" Margin="89,226,0,0" FontSize="30" Width="315"/>
 
-        <Button x:Name="btnStateClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="170,430,0,0" VerticalAlignment="Top" Width="140" Click="State_close_Click"/>
+        <Button x:Name="btnStateClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="168,341,0,0" VerticalAlignment="Top" Width="140" Click="State_close_Click"/>
 
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" DataClick="CartesianChart_DataClick" Margin="0,243,0,44">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Labels="{Binding Labels}" LabelsRotation="-90">
-                    <lvc:Axis.Separator>
-                        <lvc:Separator IsEnabled="False" Step="1"></lvc:Separator>
-                    </lvc:Axis.Separator>
-                </lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis MinValue="0" MaxValue="60"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        <TextBlock x:Name="hint1Text" HorizontalAlignment="Left" TextWrapping="Wrap" Text="水分" VerticalAlignment="Top" Margin="89,294,0,0" FontSize="20"/>
+        <Image x:Name="hint1" ToolTip="水分が不足すると集中力が低下してしまうため、コップ１杯の水を８回を目安に補給しましょう。" Source="Resources\questionMark.png" Margin="118,294,309,49" RenderTransformOrigin="-0.704,0.108"/>
+        <TextBlock x:Name="hint2Text" HorizontalAlignment="Left" TextWrapping="Wrap" Text="食事" VerticalAlignment="Top" Margin="198,294,0,0" RenderTransformOrigin="1.875,0.752" FontSize="20"/>
+        <Image x:Name="hint2" ToolTip="栄養バランスのよい食事は集中力を高く持続させることができます。" Source="Resources\questionMark.png" Margin="226,294,203,49" RenderTransformOrigin="-0.704,0.108"/>
+        <TextBlock x:Name="hint3Text" HorizontalAlignment="Left" TextWrapping="Wrap" Text="休憩" VerticalAlignment="Top" Margin="306,294,0,0" RenderTransformOrigin="1.875,0.752" FontSize="20"/>
+        <Image x:Name="hint3" ToolTip="高い集中力を保つには45～60分作業を行い、5～15分の休憩を取るようにしましょう。" Source="Resources\questionMark.png" Margin="337,294,97,49" RenderTransformOrigin="-0.704,0.108"/>
     </Grid>
 </Window>

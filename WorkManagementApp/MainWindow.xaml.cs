@@ -52,8 +52,6 @@ namespace WorkManagementApp
         // Gestures : handsign
         private Gesture seki;
         private Gesture drink;
-        private Gesture sodeage;
-        private Gesture sodesage;
         private Gesture agohige;
         private Gesture agohige_pose;
 
@@ -283,14 +281,6 @@ namespace WorkManagementApp
                 {
                     seki = gesture;
                 }
-                if (gesture.Name == "sodeage")
-                {
-                    sodeage = gesture;
-                }
-                if (gesture.Name == "sodesage")
-                {
-                    sodesage = gesture;
-                }
                 if (gesture.Name == "agohige")
                 {
                     agohige = gesture;
@@ -411,8 +401,7 @@ namespace WorkManagementApp
                         Sw_playphoneR(true);
                         checkText1.Text = "集中しています";
                     }
-                     
-                    if(0.2 < resultRPP.Confidence || 0.2 < resultLPP.Confidence)
+                    else if(0.3 < resultRPP.Confidence || 0.3 < resultLPP.Confidence)
                     {
                         Sw_playphoneR(false);
                         checkText1.Text = "集中していません";
@@ -575,16 +564,11 @@ namespace WorkManagementApp
 
             sw.lblTotalTime.Content = stateoldtimespan.Add(statenowtimespan).ToString(@"hh\:mm\:ss");
             sw.Show();
-
-            Console.WriteLine(timeLimitHH);
-            Console.WriteLine(TimeLimitMM);
             
         }
 
         private void Config_open_Click(object sender, RoutedEventArgs e)
         {
-            TimerStart();
-            StateTimerStart();
             ConfigWindow cw = new ConfigWindow();
 
             cw.SetParent(this);

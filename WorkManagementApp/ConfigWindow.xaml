@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:WorkManagementApp"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="WorkManagementApp.ConfigWindow"
         mc:Ignorable="d"
-        Title="設定" Height="227" Width="500">
-    <Grid Margin="0,0,0,-2" Height="198" VerticalAlignment="Top">
+        Title="設定" Height="203" Width="500">
+    <Grid Margin="0,0,0,2">
         <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="目標作業時間を決めてください" VerticalAlignment="Top" Margin="150,29,0,0" FontSize="15" Height="19" Width="188"/>
 
-        <Button x:Name="btnConfigClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="10,157,0,0" VerticalAlignment="Top" Width="140" Click="Config_close_Click"/>
-        <Button x:Name="btnCancel" Content="キャンセル" HorizontalAlignment="Left" Height="30" Margin="170,157,0,0" VerticalAlignment="Top" Width="140" Click="BtnCancel_Click"/>
-        <Button x:Name="btnApply" Content="適用" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="326,157,0,0" Height="30" Click="BtnApply_Click"/>
-        <CheckBox x:Name="checkBox" Content="通知音をなくす" HorizontalAlignment="Left" Margin="106,110,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnConfigClose" Content="とじる" HorizontalAlignment="Left" Height="30" Margin="10,122,0,0" VerticalAlignment="Top" Width="140" Click="Config_close_Click"/>
+        <Button x:Name="btnCancel" Content="キャンセル" HorizontalAlignment="Left" Height="30" Margin="174,122,0,0" VerticalAlignment="Top" Width="140" Click="BtnCancel_Click"/>
+        <Button x:Name="btnApply" Content="適用" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="342,122,0,0" Height="30" Click="BtnApply_Click"/>
+
         <xctk:TimePicker x:Name="timePicker" HorizontalAlignment="Left" Margin="159,53,0,0" VerticalAlignment="Top" Height="36" Width="169" FontSize="18"/>
-        <CheckBox x:Name="checkBox_Copy" Content="１時間の通知をなくす" HorizontalAlignment="Left" Margin="257,110,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
