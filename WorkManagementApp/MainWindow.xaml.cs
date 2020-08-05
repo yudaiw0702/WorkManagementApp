@@ -53,7 +53,15 @@ namespace WorkManagementApp
         private Gesture seki;
         private Gesture drink;
         private Gesture agohige;
-        private Gesture agohige_pose;
+        private Gesture atumeru;
+        private Gesture konnitiwa;
+        private Gesture netu;
+        private Gesture ohayo_pose;
+        private Gesture sayonara_ges;
+        private Gesture urayamasii;
+        private Gesture urusai;
+        private Gesture wakaranai;
+        private Gesture wakarimasita_ges;
 
         //フラグ
         public static bool seat_flag = false;
@@ -261,6 +269,7 @@ namespace WorkManagementApp
             // 使用するジェスチャーをデータベースから取り出す
             foreach (var gesture in gestureDatabase.AvailableGestures)
             {
+                //集中力
                 if (gesture.Name == "seat")
                 {
                     seat = gesture;
@@ -273,22 +282,32 @@ namespace WorkManagementApp
                 {
                     left_playphone = gesture;
                 }
-                if (gesture.Name == "drink_pose")
-                {
-                    drink = gesture;
-                }
-                if (gesture.Name == "seki")
-                {
-                    seki = gesture;
-                }
-                if (gesture.Name == "agohige")
-                {
-                    agohige = gesture;
-                }
-                if (gesture.Name == "agohige_pose")
-                {
-                    agohige_pose = gesture;
-                }
+
+                //手話
+                if (gesture.Name == "drink_pose") //飲む
+                { drink = gesture; }
+                if (gesture.Name == "seki") //風邪
+                { seki = gesture; }
+                if (gesture.Name == "agohige") //好き
+                { agohige = gesture; }
+                if (gesture.Name == "atumeru") //集める（胸付近を両手で仰ぐ）
+                { atumeru = gesture; }
+                if (gesture.Name == "konnitiwa") //こんにちは（額でチョキをする）
+                { konnitiwa = gesture; }
+                if (gesture.Name == "netu") //熱（額でパーをする）
+                { netu = gesture; }
+                if (gesture.Name == "ohayo_pose") //おはよう（頭の横でグーをする）
+                { ohayo_pose = gesture; }
+                if (gesture.Name == "sayonara_ges") //さようならジェスチャー（頭の真横が１、遠ざけると０）
+                { sayonara_ges = gesture; }
+                if (gesture.Name == "urayamasii") //うらやましい（右胸付近で自分を人差し指で指す）
+                { urayamasii = gesture; }
+                if (gesture.Name == "urusai") //うるさい（右耳に人差し指をいれる）
+                { urusai = gesture; }
+                if (gesture.Name == "wakaranai") //わからない（口元でパーをする）
+                { wakaranai = gesture; }
+                if (gesture.Name == "wakarimasita_ges") //わかりましたジェスチャー（お腹を上下にさする）
+                { wakarimasita_ges = gesture; }
                 this.gestureFrameSource.AddGesture(gesture);
             }
 
@@ -363,11 +382,11 @@ namespace WorkManagementApp
 
                     //Discrete : handsign
                     var result = gestureFrame.DiscreteGestureResults[seki];
-                    var result2 = gestureFrame.DiscreteGestureResults[agohige_pose];
+                    var result2 = gestureFrame.DiscreteGestureResults[agohige];
                     var result3 = gestureFrame.DiscreteGestureResults[drink];
 
                     //Continuous
-                    var progressResult = gestureFrame.ContinuousGestureResults[agohige];
+                    //var progressResult = gestureFrame.ContinuousGestureResults[agohige];
                     //var progressResult2 = gestureFrame.ContinuousGestureResults[sodeage];
                     //var progressResult3 = gestureFrame.ContinuousGestureResults[sodesage];
 
@@ -408,7 +427,8 @@ namespace WorkManagementApp
                     }
 
                     //咳をする動作
-                    if (0.3 < result.Confidence)
+                    if ((0.4 < result.Confidence && 0.3 > result2.Confidence && 0.5 > result3.Confidence) || 
+                        (0.8 < result.Confidence && 0.8 < result3.Confidence)) 
                     {
                         Sw_seki(true);  
                     }
@@ -418,30 +438,18 @@ namespace WorkManagementApp
                     }
 
                     //あごひげの動作
-                    if (0.3 <= result2.Confidence)
+                    if ((0.3 <= result2.Confidence && 0.4 > result.Confidence && 0.5 > result3.Confidence) ||
+                        (0.9 < result2.Confidence))
                     {
-                        int sw_agohige = Sw_agohige(0);
-                        if (sw_agohige == 1)
-                        {
-                            Console.WriteLine("あごひげに触ってます");
-
-                            if (0.4 > progressResult.Progress)
-                            {
-                                Console.WriteLine("あごひげの手話");
-                                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/agohige.wav");
-                                player.Play();
-                            }
-
-                        }
+                        Sw_agohige(true);
                     }
                     else
                     {
-                        Sw_agohige(2);
                         agohige_time = 0;
                     }
 
                     //飲む動作
-                    if (result3.Confidence >= 0.7)
+                    if (result3.Confidence >= 0.5 && 0.4 > result.Confidence && 0.3 > result2.Confidence)
                     {
                         Sw_drink(true);
                     }
@@ -529,7 +537,7 @@ namespace WorkManagementApp
             {
                 seki_time++;
 
-                if (seki_time == 20)
+                if (seki_time == 10)
                 {
                     Console.WriteLine("咳の手話");
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
@@ -541,19 +549,22 @@ namespace WorkManagementApp
             }
         }
 
-        private int Sw_agohige(int agohige_flag)
+        private void Sw_agohige(bool agohige_flag)
         {
-            if (agohige_flag == 0)
+            if (agohige_flag)
             {
                 agohige_time++;
 
-                if (agohige_time >= 50)
+                if (agohige_time == 20)
                 {
-                    return 1;
+                    Console.WriteLine("あごひげの手話");
+                    System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/agohige.wav");
+                    player.Play();
+
+                    agohige_time = 0;
                 }
 
             }
-            return 0;
 
         }
 
