@@ -384,18 +384,31 @@ namespace WorkManagementApp
                     var result = gestureFrame.DiscreteGestureResults[seki];
                     var result2 = gestureFrame.DiscreteGestureResults[agohige];
                     var result3 = gestureFrame.DiscreteGestureResults[drink];
+                    var result4 = gestureFrame.DiscreteGestureResults[atumeru];
+                    var result5 = gestureFrame.DiscreteGestureResults[konnitiwa];
+                    var result6 = gestureFrame.DiscreteGestureResults[netu];
+                    var result7 = gestureFrame.DiscreteGestureResults[ohayo_pose];
+                    var result8 = gestureFrame.DiscreteGestureResults[urayamasii];
+                    var result9 = gestureFrame.DiscreteGestureResults[urusai];
+                    var result10 = gestureFrame.DiscreteGestureResults[wakaranai];
 
-                    //Continuous
-                    //var progressResult = gestureFrame.ContinuousGestureResults[agohige];
-                    //var progressResult2 = gestureFrame.ContinuousGestureResults[sodeage];
-                    //var progressResult3 = gestureFrame.ContinuousGestureResults[sodesage];
+                    //Continuous : handsign
+                    var progressResult = gestureFrame.ContinuousGestureResults[sayonara_ges];
+                    var progressResult2 = gestureFrame.ContinuousGestureResults[wakarimasita_ges];
 
-                    textBlock.Text = "座ってる動作" + resultSeat.Confidence.ToString();
-                    textBlock1.Text = "咳" + result.Confidence.ToString();
-                    textBlock2.Text = "あごひげ" + result2.Confidence.ToString();
-                    textBlock3.Text = "飲む" + result3.Confidence.ToString();
-                    textBlock4.Text = "スマホ操作R" + resultRPP.Confidence.ToString();
-                    textBlock5.Text = "スマホ操作L" + resultLPP.Confidence.ToString();
+                    textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
+                    textBlock1.Text = "咳：" + result.Confidence.ToString();
+                    textBlock2.Text = "あごひげ：" + result2.Confidence.ToString();
+                    textBlock3.Text = "飲む：" + result3.Confidence.ToString();
+                    textBlock4.Text = "集める：" + result4.Confidence.ToString();
+                    textBlock5.Text = "こんにちは：" + result5.Confidence.ToString();
+                    textBlock6.Text = "熱：" + result6.Confidence.ToString();
+                    textBlock7.Text = "おはよう：" + result7.Confidence.ToString();
+                    textBlock8.Text = "羨ましい：" + result8.Confidence.ToString();
+                    textBlock9.Text = "うるさい：" + result9.Confidence.ToString();
+                    textBlock10.Text = "わからない：" + result10.Confidence.ToString();
+                    textBlock11.Text = "さようならges：" + progressResult.Progress.ToString();
+                    textBlock12.Text = "わかりましたges：" + progressResult2.Progress.ToString();
 
                     //作業してるとき（座っている動作）
                     if (0.8 < resultSeat.Confidence)
@@ -537,7 +550,7 @@ namespace WorkManagementApp
             {
                 seki_time++;
 
-                if (seki_time == 10)
+                if (seki_time == 20)
                 {
                     Console.WriteLine("咳の手話");
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");

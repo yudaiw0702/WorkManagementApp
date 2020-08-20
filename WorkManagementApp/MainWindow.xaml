@@ -4,25 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="389" Width="500">
+        mc:Ignorable="d" Title="作業管理アプリ" Height="603.05" Width="500">
 
-    <Grid x:Name="LayoutRoot" Margin="0,0,0,-1" RenderTransformOrigin="0.539,0.597" Height="359" VerticalAlignment="Top">
-        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="324,265,10,10" />
+    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.539,0.597" Margin="0,0,0,2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="638*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="395,540,0,0" Grid.RowSpan="3" />
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
         <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="Config_open_Click"/>
-        <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作業していません" VerticalAlignment="Top" Margin="340,10,0,0" FontSize="15"/>
-        <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中していません" VerticalAlignment="Top" Margin="340,35,0,0" FontSize="15"/>
-        <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0"/>
+        <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作業していません" VerticalAlignment="Top" Margin="340,10,0,0" FontSize="15" Height="20" Width="100"/>
+        <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中していません" VerticalAlignment="Top" Margin="340,35,0,0" FontSize="15" Height="20" Width="100"/>
+        <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0" Height="16" Width="94"/>
 
 
 
         <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="22,158,0,0" FontSize="20"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="22,190,0,0" FontSize="20"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="22,222,0,0" FontSize="20"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="22,254,0,0" FontSize="20"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="22,286,0,0" FontSize="20"/>
-        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="22,318,0,0" FontSize="20"/>
-
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="座ってる動作" VerticalAlignment="Top" Margin="22,158,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="咳" VerticalAlignment="Top" Margin="22,190,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="あごひげ" VerticalAlignment="Top" Margin="22,222,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="飲む" VerticalAlignment="Top" Margin="22,254,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集める" VerticalAlignment="Top" Margin="22,286,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="こんにちは" VerticalAlignment="Top" Margin="22,318,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="熱" VerticalAlignment="Top" Margin="22,350,0,0" FontSize="20" RenderTransformOrigin="0.524,1.259" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock7" HorizontalAlignment="Left" TextWrapping="Wrap" Text="おはよう" VerticalAlignment="Top" Margin="22,377,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock8" HorizontalAlignment="Left" TextWrapping="Wrap" Text="羨ましい" VerticalAlignment="Top" Margin="22,409,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock9" HorizontalAlignment="Left" TextWrapping="Wrap" Text="うるさい" VerticalAlignment="Top" Margin="22,441,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わからない" VerticalAlignment="Top" Margin="22,473,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" TextWrapping="Wrap" Text="さようならジェスチャ" VerticalAlignment="Top" Margin="22,505,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わかりましたジェスチャ" VerticalAlignment="Top" Margin="22,537,0,0" FontSize="20" Height="27" Width="380"/>
     </Grid>
 </Window>
