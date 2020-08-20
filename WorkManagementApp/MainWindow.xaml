@@ -13,6 +13,7 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="395,540,0,0" Grid.RowSpan="3" />
+
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
         <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="Config_open_Click"/>
         <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作業していません" VerticalAlignment="Top" Margin="340,10,0,0" FontSize="15" Height="20" Width="100"/>
@@ -22,6 +23,7 @@
 
 
         <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
+
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="座ってる動作" VerticalAlignment="Top" Margin="22,158,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="咳" VerticalAlignment="Top" Margin="22,190,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="あごひげ" VerticalAlignment="Top" Margin="22,222,0,0" FontSize="20" Height="27" Width="380"/>
