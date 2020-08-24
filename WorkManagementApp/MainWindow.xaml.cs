@@ -477,11 +477,11 @@ namespace WorkManagementApp
                     }
 
                     //さようならのジェスチャー
-                    if(progressResult.Progress < 2)
+                    if(progressResult.Progress < 0.2)
                     {
                         Sw_sayonara(true);
                     }
-                    else if(sayonaraflag_ges == true && progressResult.Progress > 9)
+                    else if(sayonaraflag_ges && progressResult.Progress > 0.8)
                     {
                         Sw_sayonara(false);
                     }
@@ -561,19 +561,21 @@ namespace WorkManagementApp
             }
         }
 
-        private void Sw_seki(bool seki_flag)
+        private async void Sw_seki(bool seki_flag)
         {
             if (seki_flag)
             {
                 seki_time++;
 
-                if (seki_time == 20)
+                if (seki_time == 30)
                 {
                     Console.WriteLine("咳の手話");
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
                     player.Play();
 
                     seki_time = 0;
+
+                    await Task.Delay(3000);
                 }
 
             }
@@ -603,14 +605,14 @@ namespace WorkManagementApp
             {
                 sayonara_time++;
 
-                if (sayonara_time > 20)
+                if (sayonara_time < 100)
                 {
                     sayonaraflag_ges = true;
-                    sayonara_time = 0;
                 }
                 else
                 {
                     sayonaraflag_ges = false;
+                    Console.WriteLine("false");
                     sayonara_time = 0;
                 }
 
@@ -618,10 +620,10 @@ namespace WorkManagementApp
             else
             {
                 sayonara_time++;
-                if (sayonara_time == 20)
+                if (sayonara_time > 20)
                 {
                     Console.WriteLine("さよならのジェスチャー");
-
+                    sayonaraflag_ges = false;
                     sayonara_time = 0;
                 }
             }
