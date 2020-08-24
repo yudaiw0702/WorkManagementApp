@@ -67,6 +67,10 @@ namespace WorkManagementApp
         public static bool seat_flag = false;
         public static bool playphoneR_flag = false;
         public static bool playphoneL_flag = false;
+        public static bool sayonara_flag = false;
+
+        //ジェスチャー用フラグ
+        public static bool sayonaraflag_ges = false;
 
         //Time measurement
         int seat_time = 0;
@@ -74,6 +78,7 @@ namespace WorkManagementApp
         int drink_time = 0;
         int agohige_time = 0;
         int seki_time = 0;
+        int sayonara_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -470,6 +475,16 @@ namespace WorkManagementApp
                     {
                         drink_time = 0;
                     }
+
+                    //さようならのジェスチャー
+                    if(progressResult.Progress < 2)
+                    {
+                        Sw_sayonara(true);
+                    }
+                    else if(sayonaraflag_ges == true && progressResult.Progress > 9)
+                    {
+                        Sw_sayonara(false);
+                    }
                 }
             }
         }
@@ -526,7 +541,7 @@ namespace WorkManagementApp
             }
         }
 
-        private void Sw_drink(bool drink_flag)
+        private async void Sw_drink(bool drink_flag)
         {
             if (drink_flag)
             {
@@ -539,6 +554,8 @@ namespace WorkManagementApp
                     player.Play();
 
                     drink_time = 0;
+
+                    await Task.Delay(3000);
                 }
 
             }
@@ -579,6 +596,35 @@ namespace WorkManagementApp
 
             }
 
+        }
+        private void Sw_sayonara(bool sayonara_flag)
+        {
+            if(sayonara_flag)
+            {
+                sayonara_time++;
+
+                if (sayonara_time > 20)
+                {
+                    sayonaraflag_ges = true;
+                    sayonara_time = 0;
+                }
+                else
+                {
+                    sayonaraflag_ges = false;
+                    sayonara_time = 0;
+                }
+
+            }
+            else
+            {
+                sayonara_time++;
+                if (sayonara_time == 20)
+                {
+                    Console.WriteLine("さよならのジェスチャー");
+
+                    sayonara_time = 0;
+                }
+            }
         }
 
         //別ウィンドウの表示
