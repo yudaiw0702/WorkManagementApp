@@ -79,6 +79,13 @@ namespace WorkManagementApp
         int agohige_time = 0;
         int seki_time = 0;
         int sayonara_time = 0;
+        int atumeru_time = 0;
+        int konnitiha_time = 0;
+        int netu_time = 0;
+        int ohayo_time = 0;
+        int urayamasii_time = 0;
+        int urusai_time = 0;
+        int wakaranai_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -476,15 +483,81 @@ namespace WorkManagementApp
                         drink_time = 0;
                     }
 
+                    //集める動作
+                    if (result4.Confidence >= 0.3)
+                    {
+                        Sw_atumeru(true);
+                    }
+                    else
+                    {
+                        atumeru_time = 0;
+                    }
+
+                    //こんにちは
+                    if (result5.Confidence >= 0.4)
+                    {
+                        Sw_konnitiha(true);
+                    }
+                    else
+                    {
+                        konnitiha_time = 0;
+                    }
+
+                    if (result6.Confidence >= 0.99)
+                    {
+                        Sw_netu(true);
+                    }
+                    else
+                    {
+                        netu_time = 0;
+                    }
+
+                    if (result7.Confidence >= 1)
+                    {
+                        Sw_ohayo(true);
+                    }
+                    else
+                    {
+                        ohayo_time = 0;
+                    }
+
+                    if (result8.Confidence >= 0.3)
+                    {
+                        Sw_urayamasii(true);
+                    }
+                    else
+                    {
+                        urayamasii_time = 0;
+                    }
+
+                    if (result9.Confidence >= 1)
+                    {
+                        Sw_urusai(true);
+                    }
+                    else
+                    {
+                        urusai_time = 0;
+                    }
+
+                    if (result10.Confidence >= 0.2)
+                    {
+                        Sw_wakaranai(true);
+                    }
+                    else
+                    {
+                        wakaranai_time = 0;
+                    }
+
                     //さようならのジェスチャー
-                    if(progressResult.Progress < 0.2)
+                    if (progressResult.Progress < 0.2)
                     {
                         Sw_sayonara(true);
                     }
-                    else if(sayonaraflag_ges && progressResult.Progress > 0.8)
+                    else if (sayonaraflag_ges && progressResult.Progress > 0.8)
                     {
                         Sw_sayonara(false);
                     }
+
                 }
             }
         }
@@ -553,9 +626,8 @@ namespace WorkManagementApp
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/drink.wav");
                     player.Play();
 
+                    await Task.Delay(10000);
                     drink_time = 0;
-
-                    await Task.Delay(3000);
                 }
 
             }
@@ -567,15 +639,14 @@ namespace WorkManagementApp
             {
                 seki_time++;
 
-                if (seki_time == 30)
+                if (seki_time == 40)
                 {
                     Console.WriteLine("咳の手話");
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
                     player.Play();
 
+                    await Task.Delay(10000);
                     seki_time = 0;
-
-                    await Task.Delay(3000);
                 }
 
             }
@@ -596,6 +667,118 @@ namespace WorkManagementApp
                     agohige_time = 0;
                 }
 
+            }
+
+        }
+
+        private void Sw_atumeru(bool atumeru_flag)
+        {
+            if (atumeru_flag)
+            {
+                atumeru_time++;
+
+                if (atumeru_time == 20)
+                {
+                    Console.WriteLine("集めるの手話");
+
+                    atumeru_time = 0;
+                }
+            }
+
+        }
+
+        private void Sw_konnitiha(bool konnitiha_flag)
+        {
+            if (konnitiha_flag)
+            {
+                konnitiha_time++;
+
+                if (konnitiha_time == 20)
+                {
+                    Console.WriteLine("こんにちはの手話");
+
+                    konnitiha_time = 0;
+                }
+            }
+
+        }
+
+        private void Sw_netu(bool netu_flag)
+        {
+            if (netu_flag)
+            {
+                netu_time++;
+
+                if (netu_time == 20)
+                {
+                    Console.WriteLine("熱の手話");
+
+                    netu_time = 0;
+                }
+            }
+
+        }
+
+        private void Sw_ohayo(bool ohayo_flag)
+        {
+            if (ohayo_flag)
+            {
+                ohayo_time++;
+
+                if (ohayo_time == 20)
+                {
+                    Console.WriteLine("おはようの手話");
+
+                    ohayo_time = 0;
+                }
+            }
+
+        }
+
+        private void Sw_urayamasii(bool urayamasii_flag)
+        {
+            if (urayamasii_flag)
+            {
+                urayamasii_time++;
+
+                if (urayamasii_time == 20)
+                {
+                    Console.WriteLine("羨ましいの手話");
+
+                    urayamasii_time = 0;
+                }
+            }
+
+        }
+
+        private void Sw_urusai(bool urusai_flag)
+        {
+            if (urusai_flag)
+            {
+                urusai_time++;
+
+                if (urusai_time == 20)
+                {
+                    Console.WriteLine("うるさいの手話");
+
+                    urusai_time = 0;
+                }
+            }
+
+        }
+
+        private void Sw_wakaranai(bool wakaranai_flag)
+        {
+            if (wakaranai_flag)
+            {
+                wakaranai_time++;
+
+                if (wakaranai_time == 20)
+                {
+                    Console.WriteLine("分からないの手話");
+
+                    wakaranai_time = 0;
+                }
             }
 
         }
