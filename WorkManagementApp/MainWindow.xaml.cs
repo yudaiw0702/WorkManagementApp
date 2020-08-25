@@ -71,6 +71,7 @@ namespace WorkManagementApp
 
         //ジェスチャー用フラグ
         public static bool sayonaraflag_ges = false;
+        public static bool wakarimasitaflag_ges = false;
 
         //Time measurement
         int seat_time = 0;
@@ -86,6 +87,7 @@ namespace WorkManagementApp
         int urayamasii_time = 0;
         int urusai_time = 0;
         int wakaranai_time = 0;
+        int wakarimasita_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -558,6 +560,16 @@ namespace WorkManagementApp
                         Sw_sayonara(false);
                     }
 
+                    //わかりましたジェスチャー
+                    if (progressResult2.Progress > 0.5)
+                    {
+                        Sw_wakarimasita(true);
+                    }
+                    else if (sayonaraflag_ges && progressResult2.Progress < 0.1)
+                    {
+                        Sw_wakarimasita(false);
+                    }
+
                 }
             }
         }
@@ -808,6 +820,36 @@ namespace WorkManagementApp
                     Console.WriteLine("さよならのジェスチャー");
                     sayonaraflag_ges = false;
                     sayonara_time = 0;
+                }
+            }
+        }
+
+        private void Sw_wakarimasita(bool wakarimasita_flag)
+        {
+            if (wakarimasita_flag)
+            {
+                wakarimasita_time++;
+
+                if (wakarimasita_time < 100)
+                {
+                    wakarimasitaflag_ges = true;
+                }
+                else
+                {
+                    wakarimasitaflag_ges = false;
+                    Console.WriteLine("false");
+                    wakarimasita_time = 0;
+                }
+
+            }
+            else
+            {
+                wakarimasita_time++;
+                if (wakarimasita_time > 20)
+                {
+                    Console.WriteLine("わかりましたのジェスチャー");
+                    wakarimasitaflag_ges = false;
+                    wakarimasita_time = 0;
                 }
             }
         }
