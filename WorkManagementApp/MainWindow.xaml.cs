@@ -19,6 +19,7 @@ using Microsoft.Kinect.VisualGestureBuilder;
 using System.Resources;
 using System.ComponentModel.Design;
 using System.Net;
+using System.Threading;
 
 namespace WorkManagementApp
 {
@@ -73,6 +74,8 @@ namespace WorkManagementApp
         public static bool sayonaraflag_ges = false;
         public static bool wakarimasitaflag_ges = false;
 
+        private System.Media.SoundPlayer player = null;
+
         //Time measurement
         int seat_time = 0;
         int playphoneR_time = 0;
@@ -87,7 +90,7 @@ namespace WorkManagementApp
         int urayamasii_time = 0;
         int urusai_time = 0;
         int wakaranai_time = 0;
-        int wakarimasita_time = 0;
+        //int wakarimasita_time = 0;
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
@@ -118,6 +121,7 @@ namespace WorkManagementApp
             StateWindow sw = new StateWindow();
 
             InitializeComponent();
+
 
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
@@ -333,6 +337,8 @@ namespace WorkManagementApp
             // フレームリーダーを開く (Color / Body)
             multiFrameReader = kinect.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
             multiFrameReader.MultiSourceFrameArrived += multiFrameReader_MultiSourceFrameArrived;
+
+            
         }
 
         private void multiFrameReader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
@@ -523,7 +529,7 @@ namespace WorkManagementApp
                         ohayo_time = 0;
                     }
 
-                    if (result8.Confidence >= 0.3)
+                    if (result8.Confidence >= 0.6)
                     {
                         Sw_urayamasii(true);
                     }
@@ -553,14 +559,14 @@ namespace WorkManagementApp
                     //さようならのジェスチャー
                     if (progressResult.Progress < 0.2)
                     {
-                        Sw_sayonara(true);
+                        Sw_sayonaraAsync(true);
                     }
                     else if (sayonaraflag_ges && progressResult.Progress > 0.8)
                     {
-                        Sw_sayonara(false);
+                        Sw_sayonaraAsync(false);
                     }
 
-                    //わかりましたジェスチャー
+                    /*わかりましたジェスチャー
                     if (progressResult2.Progress > 0.5)
                     {
                         Sw_wakarimasita(true);
@@ -568,8 +574,7 @@ namespace WorkManagementApp
                     else if (sayonaraflag_ges && progressResult2.Progress < 0.1)
                     {
                         Sw_wakarimasita(false);
-                    }
-
+                    }*/
                 }
             }
         }
@@ -683,15 +688,16 @@ namespace WorkManagementApp
 
         }
 
-        private void Sw_atumeru(bool atumeru_flag)
+        private async void Sw_atumeru(bool atumeru_flag)
         {
             if (atumeru_flag)
             {
                 atumeru_time++;
 
-                if (atumeru_time == 20)
+                if (atumeru_time == 30)
                 {
                     Console.WriteLine("集めるの手話");
+                    await Task.Delay(10000);
 
                     atumeru_time = 0;
                 }
@@ -721,7 +727,7 @@ namespace WorkManagementApp
             {
                 netu_time++;
 
-                if (netu_time == 20)
+                if (netu_time == 30)
                 {
                     Console.WriteLine("熱の手話");
 
@@ -794,7 +800,7 @@ namespace WorkManagementApp
             }
 
         }
-        private void Sw_sayonara(bool sayonara_flag)
+        private async void Sw_sayonaraAsync(bool sayonara_flag)
         {
             if(sayonara_flag)
             {
@@ -807,7 +813,6 @@ namespace WorkManagementApp
                 else
                 {
                     sayonaraflag_ges = false;
-                    Console.WriteLine("false");
                     sayonara_time = 0;
                 }
 
@@ -815,15 +820,17 @@ namespace WorkManagementApp
             else
             {
                 sayonara_time++;
-                if (sayonara_time > 20)
+                if (sayonara_time == 30)
                 {
                     Console.WriteLine("さよならのジェスチャー");
+                    await Task.Delay(10000);
                     sayonaraflag_ges = false;
                     sayonara_time = 0;
                 }
             }
         }
 
+        /*
         private void Sw_wakarimasita(bool wakarimasita_flag)
         {
             if (wakarimasita_flag)
@@ -852,6 +859,46 @@ namespace WorkManagementApp
                     wakarimasita_time = 0;
                 }
             }
+        }*/
+
+        private void PlaySound(string waveFile)
+        {
+            //再生されているときは止める
+            if (player != null)
+                StopSound();
+
+            //読み込む
+            player = new System.Media.SoundPlayer(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/hanabi.wav");
+            //非同期再生する
+            player.Play();
+
+            player.PlayLooping();
+
+            //次のようにすると、最後まで再生し終えるまで待機する
+            //player.PlaySync();
+        }
+
+        //再生されている音を止める
+        private void StopSound()
+        {
+            if (player != null)
+            {
+                player.Stop();
+                player.Dispose();
+                player = null;
+            }
+        }
+
+        //Button1のClickイベントハンドラ
+        private void MusicStart(object sender, EventArgs e)
+        {
+            PlaySound(@"C: \Users\yudai\source\repos\WorkManagementApp\WorkManagementApp / Sound / hanabi.wav");
+        }
+
+        //Button2のClickイベントハンドラ
+        private void MusicStop(object sender, EventArgs e)
+        {
+            StopSound();
         }
 
         //別ウィンドウの表示
