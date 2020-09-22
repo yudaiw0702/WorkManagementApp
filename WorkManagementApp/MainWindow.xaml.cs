@@ -521,7 +521,7 @@ namespace WorkManagementApp
                         netu_time = 0;
                     }
 
-                    if (result7.Confidence >= 1)
+                    if (result7.Confidence >= 0.6)
                     {
                         Sw_ohayo(true);
                     }
@@ -719,7 +719,7 @@ namespace WorkManagementApp
             {
                 konnitiha_time++;
 
-                if (konnitiha_time == 20)
+                if (konnitiha_time == 10)
                 {
                     Console.WriteLine("こんにちはの手話");
 
@@ -738,7 +738,7 @@ namespace WorkManagementApp
             {
                 netu_time++;
 
-                if (netu_time == 30)
+                if (netu_time == 10)
                 {
                     Console.WriteLine("熱の手話");
 
@@ -757,7 +757,7 @@ namespace WorkManagementApp
             {
                 ohayo_time++;
 
-                if (ohayo_time == 20)
+                if (ohayo_time == 10)
                 {
                     Console.WriteLine("おはようの手話");
 
@@ -919,13 +919,11 @@ namespace WorkManagementApp
             }
         }
 
-        //Button1のClickイベントハンドラ
         private void MusicStart(object sender, EventArgs e)
         {
             PlaySound(@"C: \Users\yudai\source\repos\WorkManagementApp\WorkManagementApp / Sound / hanabi.wav");
         }
 
-        //Button2のClickイベントハンドラ
         private void MusicStop(object sender, EventArgs e)
         {
             StopSound();

@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="227.05" Width="512">
+        mc:Ignorable="d" Title="作業管理アプリ" Height="483.05" Width="512">
 
-    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.539,0.597" Margin="0,0,0,2">
+    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.552,0.669" Margin="0,0,0,-128">
         <Grid.RowDefinitions>
             <RowDefinition Height="638*"/>
             <RowDefinition Height="0*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="324,458,0,0" Grid.RowSpan="3" />
+        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="317,658,7,-200" Grid.RowSpan="3" />
 
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
         <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="Config_open_Click"/>
@@ -24,20 +24,25 @@
 
         <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
 
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="座ってる動作" VerticalAlignment="Top" Margin="22,216,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="咳" VerticalAlignment="Top" Margin="22,248,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="あごひげ" VerticalAlignment="Top" Margin="22,280,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="飲む" VerticalAlignment="Top" Margin="22,312,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集める" VerticalAlignment="Top" Margin="22,344,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="こんにちは" VerticalAlignment="Top" Margin="22,376,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="熱" VerticalAlignment="Top" Margin="22,408,0,0" FontSize="20" RenderTransformOrigin="0.524,1.259" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock7" HorizontalAlignment="Left" TextWrapping="Wrap" Text="おはよう" VerticalAlignment="Top" Margin="22,435,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock8" HorizontalAlignment="Left" TextWrapping="Wrap" Text="羨ましい" VerticalAlignment="Top" Margin="22,467,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock9" HorizontalAlignment="Left" TextWrapping="Wrap" Text="うるさい" VerticalAlignment="Top" Margin="22,499,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わからない" VerticalAlignment="Top" Margin="22,531,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" TextWrapping="Wrap" Text="さようならジェスチャ" VerticalAlignment="Top" Margin="22,563,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わかりましたジェスチャ" VerticalAlignment="Top" Margin="22,595,0,0" FontSize="20" Height="27" Width="380"/>
-        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="22,158,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.36,0.15" Click="MusicStart"/>
-        <Button x:Name="button1" Content="Stop" HorizontalAlignment="Left" Margin="126,158,0,0" VerticalAlignment="Top" Width="75" Click="MusicStop"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="座ってる動作" VerticalAlignment="Top" Margin="15,416,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="咳" VerticalAlignment="Top" Margin="15,453,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="あごひげ" VerticalAlignment="Top" Margin="15,480,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="飲む" VerticalAlignment="Top" Margin="15,512,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集める" VerticalAlignment="Top" Margin="15,544,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="こんにちは" VerticalAlignment="Top" Margin="15,576,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock6" HorizontalAlignment="Left" TextWrapping="Wrap" Text="熱" VerticalAlignment="Top" Margin="15,608,0,0" FontSize="20" RenderTransformOrigin="0.524,1.259" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock7" HorizontalAlignment="Left" TextWrapping="Wrap" Text="おはよう" VerticalAlignment="Top" Margin="15,635,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock8" HorizontalAlignment="Left" TextWrapping="Wrap" Text="羨ましい" VerticalAlignment="Top" Margin="15,667,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock9" HorizontalAlignment="Left" TextWrapping="Wrap" Text="うるさい" VerticalAlignment="Top" Margin="15,699,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わからない" VerticalAlignment="Top" Margin="15,731,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" TextWrapping="Wrap" Text="さようならジェスチャ" VerticalAlignment="Top" Margin="15,3,0,-26" FontSize="20" Height="27" Width="380" Grid.Row="2"/>
+        <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わかりましたジェスチャ" VerticalAlignment="Top" Margin="15,35,0,-58" FontSize="20" Height="27" Width="380" Grid.Row="2"/>
+        <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="320,174,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.36,0.15" Click="MusicStart" Grid.RowSpan="3"/>
+        <Button x:Name="button1" Content="Stop" HorizontalAlignment="Left" Margin="400,173,0,0" VerticalAlignment="Top" Width="75" Click="MusicStop" RenderTransformOrigin="1.413,0.4"/>
+        <TextBlock x:Name="textBlock13" HorizontalAlignment="Left" Margin="358,153,0,0" TextWrapping="Wrap" Text="集中できる音楽" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="textBoxMemo" HorizontalAlignment="Left" Height="217" Margin="10,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" AcceptsReturn="True"/>
+        <TextBlock x:Name="textBlock13_Copy" HorizontalAlignment="Left" Margin="22,205,0,0" TextWrapping="Wrap" Text="MEMO" VerticalAlignment="Top"/>
+
     </Grid>
 </Window>
