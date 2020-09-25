@@ -43,6 +43,7 @@
 
         <TextBox x:Name="textBoxMemo" HorizontalAlignment="Left" Height="217" Margin="10,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" AcceptsReturn="True"/>
         <TextBlock x:Name="textBlock13_Copy" HorizontalAlignment="Left" Margin="22,205,0,0" TextWrapping="Wrap" Text="MEMO" VerticalAlignment="Top"/>
-
+        <Button x:Name="buttonSave" Content="保存" HorizontalAlignment="Left" Margin="64,203,0,0" VerticalAlignment="Top" Width="75" Click="buttonSave_Click"/>
+        
     </Grid>
 </Window>

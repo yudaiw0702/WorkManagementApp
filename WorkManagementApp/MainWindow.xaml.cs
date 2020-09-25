@@ -21,6 +21,7 @@ using System.ComponentModel.Design;
 using System.Net;
 using System.Threading;
 using Microsoft.DirectX.AudioVideoPlayback;
+using Microsoft.Win32;
 
 namespace WorkManagementApp
 {
@@ -95,6 +96,9 @@ namespace WorkManagementApp
 
         //タイマー
         DispatcherTimer dispatcherTimer;    // タイマーオブジェクト
+
+        //メモ用
+        private string saveFileName = @"memo.txt";
 
         // 目標時間
         public int timeLimitMM = 999;
@@ -927,6 +931,28 @@ namespace WorkManagementApp
         private void MusicStop(object sender, EventArgs e)
         {
             StopSound();
+        }
+
+        //メモ
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+            // 保存用ダイヤログを開く
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+            saveFileDialog1.FileName = saveFileName;
+            if (saveFileDialog1.ShowDialog() == true)
+            {
+                System.IO.Stream stream;
+                stream = saveFileDialog1.OpenFile();
+                if (stream != null)
+                {
+                    // ファイルに書き込む
+                    System.IO.StreamWriter sw = new System.IO.StreamWriter(stream);
+                    sw.Write(textBoxMemo.Text);
+                    sw.Close();
+                    stream.Close();
+                }
+            }
         }
 
         //別ウィンドウの表示
