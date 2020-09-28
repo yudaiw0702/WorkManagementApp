@@ -440,8 +440,6 @@ namespace WorkManagementApp
                     {
                         Sw_seat(true);
                         checkText.Text = "作業しています";
-
-                        
                     }
                     else if(resultSeat.Confidence < 0.5)
                     {
@@ -594,7 +592,6 @@ namespace WorkManagementApp
 
                 if (seat_time >= 30 && !seat_flag)
                 {
-                    TimerStart();
                     seat_flag = true;
                     seat_time = 0;
                 }
@@ -605,7 +602,6 @@ namespace WorkManagementApp
 
                 if (seat_time >= 30 && seat_flag)
                 {
-                    TimerStop();
                     seat_flag = false;
                     seat_time = 0;
                 }
@@ -620,7 +616,6 @@ namespace WorkManagementApp
 
                 if (playphoneR_time >= 20 && !playphoneR_flag)
                 {
-                    StateTimerStart();
                     playphoneR_flag = true;
                     playphoneR_time = 0;
                 }
@@ -629,14 +624,13 @@ namespace WorkManagementApp
             {
                 if (playphoneR_flag)
                 {
-                    StateTimerStop();
                     playphoneR_flag = false;
                     playphoneR_time = 0;
                 }
             }
         }
 
-        private async void Sw_drink(bool drink_flag)
+        private void Sw_drink(bool drink_flag)
         {
             if (drink_flag)
             {
@@ -648,15 +642,14 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/drink.wav");
                     audio.Play();
-
-                    await Task.Delay(10000);
-                    drink_time = 0;
                 }
 
+                if (drink_time >= 250)
+                    drink_time = 0;
             }
         }
 
-        private async void Sw_seki(bool seki_flag)
+        private void Sw_seki(bool seki_flag)
         {
             if (seki_flag)
             {
@@ -668,10 +661,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
                     audio.Play();
-
-                    await Task.Delay(10000);
-                    seki_time = 0;
                 }
+
+                if (seki_time >= 250)
+                    seki_time = 0;
 
             }
         }
@@ -689,8 +682,10 @@ namespace WorkManagementApp
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/agohige.wav");
                     audio.Play();
 
-                    agohige_time = 0;
                 }
+
+                if (agohige_time >= 250)
+                    agohige_time = 0;
 
             }
 
@@ -708,11 +703,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/atumeru.wav");
                     audio.Play();
-
-                    await Task.Delay(10000);
-
-                    atumeru_time = 0;
                 }
+
+                if (atumeru_time >= 250)
+                    atumeru_time = 0;
             }
 
         }
@@ -729,9 +723,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/konnitiha.wav");
                     audio.Play();
-
-                    konnitiha_time = 0;
                 }
+
+                if (konnitiha_time >= 250)
+                    konnitiha_time = 0;
             }
 
         }
@@ -748,9 +743,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/netu.wav");
                     audio.Play();
-
-                    netu_time = 0;
                 }
+
+                if (netu_time >= 250)
+                    netu_time = 0;
             }
 
         }
@@ -767,9 +763,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/ohayo.wav");
                     audio.Play();
-
-                    ohayo_time = 0;
                 }
+
+                if (ohayo_time >= 500)
+                    ohayo_time = 0;
             }
 
         }
@@ -786,9 +783,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/urayamasii.wav");
                     audio.Play();
-
-                    urayamasii_time = 0;
                 }
+
+                if (urayamasii_time >= 250)
+                    urayamasii_time = 0;
             }
 
         }
@@ -805,9 +803,10 @@ namespace WorkManagementApp
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/urusai.wav");
                     audio.Play();
-
-                    urusai_time = 0;
                 }
+
+                if (urusai_time >= 250)
+                    urusai_time = 0;
             }
 
         }
@@ -825,8 +824,10 @@ namespace WorkManagementApp
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/wakaranai.wav");
                     audio.Play();
 
-                    wakaranai_time = 0;
                 }
+
+                if (wakaranai_time >= 250)
+                    wakaranai_time = 0;
             }
 
         }
@@ -857,10 +858,11 @@ namespace WorkManagementApp
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/sayonara.wav");
                     audio.Play();
 
-                    await Task.Delay(10000);
                     sayonaraflag_ges = false;
-                    sayonara_time = 0;
+                    
                 }
+                if (sayonara_time >= 250)
+                    sayonara_time = 0;
             }
         }
 
@@ -931,6 +933,16 @@ namespace WorkManagementApp
         private void MusicStop(object sender, EventArgs e)
         {
             StopSound();
+        }
+
+        private void BtnTimeStart(object sender, RoutedEventArgs e)
+        {
+            TimerStart();
+        }
+
+        private void BtnTimeStop(object sender, RoutedEventArgs e)
+        {
+            TimerStop();
         }
 
         //メモ

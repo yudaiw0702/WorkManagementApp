@@ -15,7 +15,7 @@
         <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="317,658,7,-200" Grid.RowSpan="3" />
 
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
-        <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="Config_open_Click"/>
+        <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="BtnTimeStart"/>
         <TextBlock x:Name="checkText" HorizontalAlignment="Left" TextWrapping="Wrap" Text="作業していません" VerticalAlignment="Top" Margin="340,10,0,0" FontSize="15" Height="20" Width="115"/>
         <TextBlock x:Name="checkText1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集中していません" VerticalAlignment="Top" Margin="340,35,0,0" FontSize="15" Height="20" Width="115"/>
         <TextBlock x:Name="checkText2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Disconnect Kinect" VerticalAlignment="Top" Margin="126,123,0,0" Height="16" Width="94"/>
@@ -44,6 +44,8 @@
         <TextBox x:Name="textBoxMemo" HorizontalAlignment="Left" Height="217" Margin="10,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475" AcceptsReturn="True"/>
         <TextBlock x:Name="textBlock13_Copy" HorizontalAlignment="Left" Margin="22,205,0,0" TextWrapping="Wrap" Text="MEMO" VerticalAlignment="Top"/>
         <Button x:Name="buttonSave" Content="保存" HorizontalAlignment="Left" Margin="64,203,0,0" VerticalAlignment="Top" Width="75" Click="buttonSave_Click"/>
-        
+        <Button x:Name="btnTimeStart" Content="TimeStart" HorizontalAlignment="Left" Margin="73,144,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.36,0.15" Click="BtnTimeStart"/>
+        <Button x:Name="btnTimeStop" Content="TimeStop" HorizontalAlignment="Left" Margin="176,144,0,0" VerticalAlignment="Top" Width="75" Click="BtnTimeStop" RenderTransformOrigin="1.413,0.4"/>
+
     </Grid>
 </Window>
