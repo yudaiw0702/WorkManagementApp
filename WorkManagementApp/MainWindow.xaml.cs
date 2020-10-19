@@ -92,6 +92,19 @@ namespace WorkManagementApp
         int urayamasii_time = 0;
         int urusai_time = 0;
         int wakaranai_time = 0;
+
+        int drink_total = 0;
+        int agohige_total = 0;
+        int seki_total = 0;
+        int sayonara_total = 0;
+        int atumeru_total = 0;
+        int konnitiha_total = 0;
+        int netu_total = 0;
+        int ohayo_total = 0;
+        int urayamasii_total = 0;
+        int urusai_total = 0;
+        int wakaranai_total = 0;
+
         //int wakarimasita_time = 0;
 
         //タイマー
@@ -562,11 +575,11 @@ namespace WorkManagementApp
                     //さようならのジェスチャー
                     if (progressResult.Progress < 0.2)
                     {
-                        Sw_sayonaraAsync(true);
+                        Sw_sayonara(true);
                     }
                     else if (sayonaraflag_ges && progressResult.Progress > 0.8)
                     {
-                        Sw_sayonaraAsync(false);
+                        Sw_sayonara(false);
                     }
 
                     /*わかりましたジェスチャー
@@ -645,6 +658,7 @@ namespace WorkManagementApp
                 }
 
                 if (drink_time >= 250)
+                    drink_total += drink_time;
                     drink_time = 0;
             }
         }
@@ -664,6 +678,7 @@ namespace WorkManagementApp
                 }
 
                 if (seki_time >= 250)
+                    seki_total += seki_time;
                     seki_time = 0;
 
             }
@@ -685,6 +700,7 @@ namespace WorkManagementApp
                 }
 
                 if (agohige_time >= 250)
+                    agohige_total += agohige_time;
                     agohige_time = 0;
 
             }
@@ -706,6 +722,7 @@ namespace WorkManagementApp
                 }
 
                 if (atumeru_time >= 250)
+                    atumeru_total += atumeru_time;
                     atumeru_time = 0;
             }
 
@@ -726,6 +743,7 @@ namespace WorkManagementApp
                 }
 
                 if (konnitiha_time >= 250)
+                    konnitiha_total += konnitiha_time;
                     konnitiha_time = 0;
             }
 
@@ -746,6 +764,7 @@ namespace WorkManagementApp
                 }
 
                 if (netu_time >= 250)
+                    netu_total += netu_time;
                     netu_time = 0;
             }
 
@@ -766,6 +785,7 @@ namespace WorkManagementApp
                 }
 
                 if (ohayo_time >= 500)
+                    ohayo_total += ohayo_time;
                     ohayo_time = 0;
             }
 
@@ -786,6 +806,7 @@ namespace WorkManagementApp
                 }
 
                 if (urayamasii_time >= 250)
+                    urayamasii_total += urayamasii_time;
                     urayamasii_time = 0;
             }
 
@@ -806,6 +827,7 @@ namespace WorkManagementApp
                 }
 
                 if (urusai_time >= 250)
+                    urusai_total += urusai_time;
                     urusai_time = 0;
             }
 
@@ -827,13 +849,14 @@ namespace WorkManagementApp
                 }
 
                 if (wakaranai_time >= 250)
+                    wakaranai_total += wakaranai_time;
                     wakaranai_time = 0;
             }
 
         }
-        private async void Sw_sayonaraAsync(bool sayonara_flag)
+        private void Sw_sayonara(bool sayonara_flag)
         {
-            if(sayonara_flag)
+            if (sayonara_flag)
             {
                 sayonara_time++;
 
@@ -859,9 +882,10 @@ namespace WorkManagementApp
                     audio.Play();
 
                     sayonaraflag_ges = false;
-                    
+
                 }
                 if (sayonara_time >= 250)
+                    sayonara_total += sayonara_time;
                     sayonara_time = 0;
             }
         }
@@ -989,6 +1013,21 @@ namespace WorkManagementApp
         {
             timeLimitHH = TimeLimitHH;
             timeLimitMM = TimeLimitMM;
+        }
+
+        public void BtnTotalCount()
+        {
+            Console.WriteLine("drink:" + drink_total);
+            Console.WriteLine("agohige:" + agohige_total);
+            Console.WriteLine("seki" + seki_total);
+            Console.WriteLine("sayonara" + sayonara_total);
+            Console.WriteLine("atumeru" + atumeru_total);
+            Console.WriteLine("konnitiha" + konnitiha_total);
+            Console.WriteLine("netu" + netu_total);
+            Console.WriteLine("ohayo" + ohayo_total);
+            Console.WriteLine("urayamasii" + urayamasii_total);
+            Console.WriteLine("urusai" + urusai_total);
+            Console.WriteLine("wakaranai" + wakaranai_total);
         }
     }
 }

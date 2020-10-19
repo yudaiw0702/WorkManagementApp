@@ -46,6 +46,7 @@
         <Button x:Name="buttonSave" Content="保存" HorizontalAlignment="Left" Margin="64,203,0,0" VerticalAlignment="Top" Width="75" Click="buttonSave_Click"/>
         <Button x:Name="btnTimeStart" Content="TimeStart" HorizontalAlignment="Left" Margin="73,144,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.36,0.15" Click="BtnTimeStart"/>
         <Button x:Name="btnTimeStop" Content="TimeStop" HorizontalAlignment="Left" Margin="176,144,0,0" VerticalAlignment="Top" Width="75" Click="BtnTimeStop" RenderTransformOrigin="1.413,0.4"/>
+        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="5,7,0,0" VerticalAlignment="Top" Width="17" Height="12" Click="BtnTotalCount"/>
 
     </Grid>
 </Window>
