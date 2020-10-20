@@ -707,7 +707,7 @@ namespace WorkManagementApp
 
         }
 
-        private async void Sw_atumeru(bool atumeru_flag)
+        private void Sw_atumeru(bool atumeru_flag)
         {
             if (atumeru_flag)
             {
@@ -723,7 +723,7 @@ namespace WorkManagementApp
 
                 if (atumeru_time >= 250)
                     atumeru_total += atumeru_time;
-                    atumeru_time = 0;
+                atumeru_time = 0;
             }
 
         }
@@ -1015,19 +1015,19 @@ namespace WorkManagementApp
             timeLimitMM = TimeLimitMM;
         }
 
-        public void BtnTotalCount()
+        public void BtnTotalCount(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("drink:" + drink_total);
-            Console.WriteLine("agohige:" + agohige_total);
-            Console.WriteLine("seki" + seki_total);
-            Console.WriteLine("sayonara" + sayonara_total);
-            Console.WriteLine("atumeru" + atumeru_total);
-            Console.WriteLine("konnitiha" + konnitiha_total);
-            Console.WriteLine("netu" + netu_total);
-            Console.WriteLine("ohayo" + ohayo_total);
-            Console.WriteLine("urayamasii" + urayamasii_total);
-            Console.WriteLine("urusai" + urusai_total);
-            Console.WriteLine("wakaranai" + wakaranai_total);
+            Console.WriteLine("drink：" + drink_total + "ms");
+            Console.WriteLine("agohige：" + agohige_total + "ms");
+            Console.WriteLine("seki：" + seki_total + "ms");
+            Console.WriteLine("sayonara：" + sayonara_total + "ms");
+            Console.WriteLine("atumeru：" + atumeru_total + "ms");
+            Console.WriteLine("konnitiha：" + konnitiha_total + "ms");
+            Console.WriteLine("netu：" + netu_total + "ms");
+            Console.WriteLine("ohayo：" + ohayo_total + "ms");
+            Console.WriteLine("urayamasii：" + urayamasii_total + "ms");
+            Console.WriteLine("urusai：" + urusai_total + "ms");
+            Console.WriteLine("wakaranai：" + wakaranai_total + "ms");
         }
     }
 }
