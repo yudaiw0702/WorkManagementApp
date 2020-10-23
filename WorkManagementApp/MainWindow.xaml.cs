@@ -555,7 +555,7 @@ namespace WorkManagementApp
                         urayamasii_time = 0;
                     }
 
-                    if (result9.Confidence >= 1)
+                    if (result9.Confidence >= 0.3)
                     {
                         Sw_urusai(true);
                     }
@@ -659,7 +659,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (drink_time >= 250)
+                if (drink_time >= 400)
                     drink_time = 0;
             }
         }
@@ -786,7 +786,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (ohayo_time >= 500)
+                if (ohayo_time >= 400)
                     ohayo_time = 0;
             }
 
@@ -799,7 +799,7 @@ namespace WorkManagementApp
                 urayamasii_time++;
                 urayamasii_total++;
 
-                if (urayamasii_time == 20)
+                if (urayamasii_time == 10)
                 {
                     Console.WriteLine("羨ましいの手話");
 
@@ -820,7 +820,7 @@ namespace WorkManagementApp
                 urusai_time++;
                 urusai_total++;
 
-                if (urusai_time == 20)
+                if (urusai_time == 10)
                 {
                     Console.WriteLine("うるさいの手話");
 
