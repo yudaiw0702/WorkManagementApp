@@ -499,7 +499,7 @@ namespace WorkManagementApp
                     }
 
                     //飲む動作
-                    if (result3.Confidence >= 0.5 && 0.4 > result.Confidence && 0.3 > result2.Confidence)
+                    if (result3.Confidence >= 0.5 && 0.4 > result.Confidence && 0.3 > result2.Confidence && 0.9 > result6.Confidence)
                     {
                         Sw_drink(true);
                     }
@@ -696,12 +696,12 @@ namespace WorkManagementApp
                 {
                     Console.WriteLine("あごひげの手話");
 
-                    var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/agohige.wav");
+                    var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/siawase.wav");
                     audio.Play();
 
                 }
 
-                if (agohige_time >= 250)
+                if (agohige_time >= 350)
                     agohige_time = 0;
 
             }
@@ -786,7 +786,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (ohayo_time >= 400)
+                if (ohayo_time >= 800)
                     ohayo_time = 0;
             }
 
