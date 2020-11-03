@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:WorkManagementApp" 
         mc:Ignorable="d" Title="作業管理アプリ" Height="483.05" Width="512">
 
-    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.552,0.669" Margin="0,0,0,-128">
+    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.552,0.669" Margin="0,0,0,-393">
         <Grid.RowDefinitions>
             <RowDefinition Height="638*"/>
             <RowDefinition Height="0*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="317,658,7,-200" Grid.RowSpan="3" />
+        <Image x:Name="ImageColor" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="246,458,10,265" />
 
         <Button x:Name="btnState" Content="ステータス詳細" HorizontalAlignment="Left" Height="30" Margin="324,74,0,0" VerticalAlignment="Top" Width="140" Click="State_open_Click"/>
         <Button x:Name="btnConfig" Content="設定" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Margin="324,109,0,0" Height="30" Click="BtnTimeStart"/>
@@ -35,8 +35,8 @@
         <TextBlock x:Name="textBlock8" HorizontalAlignment="Left" TextWrapping="Wrap" Text="羨ましい" VerticalAlignment="Top" Margin="15,667,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock9" HorizontalAlignment="Left" TextWrapping="Wrap" Text="うるさい" VerticalAlignment="Top" Margin="15,699,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わからない" VerticalAlignment="Top" Margin="15,731,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" TextWrapping="Wrap" Text="さようならジェスチャ" VerticalAlignment="Top" Margin="15,3,0,-26" FontSize="20" Height="27" Width="380" Grid.Row="2"/>
-        <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わかりましたジェスチャ" VerticalAlignment="Top" Margin="15,35,0,-58" FontSize="20" Height="27" Width="380" Grid.Row="2"/>
+        <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" TextWrapping="Wrap" Text="さようならジェスチャ" VerticalAlignment="Top" Margin="15,763,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わかりましたジェスチャ" VerticalAlignment="Top" Margin="15,790,0,0" FontSize="20" Height="27" Width="380"/>
         <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="320,174,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.36,0.15" Click="MusicStart" Grid.RowSpan="3"/>
         <Button x:Name="button1" Content="Stop" HorizontalAlignment="Left" Margin="400,173,0,0" VerticalAlignment="Top" Width="75" Click="MusicStop" RenderTransformOrigin="1.413,0.4"/>
         <TextBlock x:Name="textBlock13" HorizontalAlignment="Left" Margin="358,153,0,0" TextWrapping="Wrap" Text="集中できる音楽" VerticalAlignment="Top"/>

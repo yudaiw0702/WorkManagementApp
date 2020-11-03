@@ -653,7 +653,7 @@ namespace WorkManagementApp
 
                 if (drink_time == 20)
                 {
-                    Console.WriteLine("飲む動作");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "飲む動作");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/drink.wav");
                     audio.Play();
@@ -673,7 +673,7 @@ namespace WorkManagementApp
 
                 if (seki_time == 40)
                 {
-                    Console.WriteLine("咳の手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "咳の手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
                     audio.Play();
@@ -694,7 +694,7 @@ namespace WorkManagementApp
 
                 if (agohige_time == 20)
                 {
-                    Console.WriteLine("あごひげの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "あごひげの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/siawase.wav");
                     audio.Play();
@@ -717,13 +717,13 @@ namespace WorkManagementApp
 
                 if (atumeru_time == 30)
                 {
-                    Console.WriteLine("集めるの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "集めるの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/atumeru.wav");
                     audio.Play();
                 }
 
-                if (atumeru_time >= 250)
+                if (atumeru_time >= 600)
                 atumeru_time = 0;
             }
 
@@ -738,7 +738,7 @@ namespace WorkManagementApp
 
                 if (konnitiha_time == 10)
                 {
-                    Console.WriteLine("こんにちはの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "こんにちはの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/konnitiha.wav");
                     audio.Play();
@@ -759,7 +759,7 @@ namespace WorkManagementApp
 
                 if (netu_time == 10)
                 {
-                    Console.WriteLine("熱の手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "熱の手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/netu.wav");
                     audio.Play();
@@ -780,7 +780,7 @@ namespace WorkManagementApp
 
                 if (ohayo_time == 10)
                 {
-                    Console.WriteLine("おはようの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "おはようの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/ohayo.wav");
                     audio.Play();
@@ -801,7 +801,7 @@ namespace WorkManagementApp
 
                 if (urayamasii_time == 10)
                 {
-                    Console.WriteLine("羨ましいの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "羨ましいの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/urayamasii.wav");
                     audio.Play();
@@ -822,7 +822,7 @@ namespace WorkManagementApp
 
                 if (urusai_time == 10)
                 {
-                    Console.WriteLine("うるさいの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "うるさいの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/urusai.wav");
                     audio.Play();
@@ -843,7 +843,7 @@ namespace WorkManagementApp
 
                 if (wakaranai_time == 20)
                 {
-                    Console.WriteLine("分からないの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "分からないの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/wakaranai.wav");
                     audio.Play();
@@ -878,7 +878,7 @@ namespace WorkManagementApp
                 sayonara_time++;
                 if (sayonara_time == 30)
                 {
-                    Console.WriteLine("さよならのジェスチャー");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "さよならのジェスチャー");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/sayonara.wav");
                     audio.Play();
