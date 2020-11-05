@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="483.05" Width="512">
+        mc:Ignorable="d" Title="作業管理アプリ" Height="853.05" Width="512">
 
-    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.552,0.669" Margin="0,0,0,-393">
+    <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.552,0.669" Margin="0,0,0,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="638*"/>
             <RowDefinition Height="0*"/>

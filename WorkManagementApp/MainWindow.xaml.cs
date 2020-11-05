@@ -47,24 +47,25 @@ namespace WorkManagementApp
         private VisualGestureBuilderFrameSource gestureFrameSource;
         private VisualGestureBuilderFrameReader gestureFrameReader;
 
-        // Gestures
+        /* Gestures
         private Gesture seat;
         private Gesture right_playphone;
         private Gesture left_playphone;
+        */
 
         // Gestures : handsign
-        private Gesture seki;
-        private Gesture drink;
-        private Gesture agohige;
+        private Gesture kaze;
+        private Gesture nomu;
+        private Gesture siawase;
         private Gesture atumeru;
         private Gesture konnitiwa;
         private Gesture netu;
-        private Gesture ohayo_pose;
+        private Gesture ohayos;
         private Gesture sayonara_ges;
         private Gesture urayamasii;
-        private Gesture urusai;
+        private Gesture urusais;
         private Gesture wakaranai;
-        private Gesture wakarimasita_ges;
+        //private Gesture wakarimasita_ges;
 
         //フラグ
         public static bool seat_flag = false;
@@ -81,29 +82,29 @@ namespace WorkManagementApp
         //Time measurement
         int seat_time = 0;
         int playphoneR_time = 0;
-        int drink_time = 0;
-        int agohige_time = 0;
-        int seki_time = 0;
+        int nomu_time = 0;
+        int siawase_time = 0;
+        int kaze_time = 0;
         int sayonara_time = 0;
         int atumeru_time = 0;
         int konnitiha_time = 0;
         int netu_time = 0;
         int ohayo_time = 0;
         int urayamasii_time = 0;
-        int urusai_time = 0;
+        int urusais_time = 0;
         int wakaranai_time = 0;
 
         
-        public int drink_total = 0;
-        public int agohige_total = 0;
-        public int seki_total = 0;
+        public int nomu_total = 0;
+        public int siawase_total = 0;
+        public int kaze_total = 0;
         public int sayonara_total = 0;
         public int atumeru_total = 0;
         public int konnitiha_total = 0;
         public int netu_total = 0;
         public int ohayo_total = 0;
         public int urayamasii_total = 0;
-        public int urusai_total = 0;
+        public int urusais_total = 0;
         public int wakaranai_total = 0;
         
         //int wakarimasita_time = 0;
@@ -306,7 +307,7 @@ namespace WorkManagementApp
             // 使用するジェスチャーをデータベースから取り出す
             foreach (var gesture in gestureDatabase.AvailableGestures)
             {
-                //集中力
+                /* 集中力
                 if (gesture.Name == "seat")
                 {
                     seat = gesture;
@@ -319,32 +320,33 @@ namespace WorkManagementApp
                 {
                     left_playphone = gesture;
                 }
+                */
 
                 //手話
-                if (gesture.Name == "drink_pose") //飲む
-                { drink = gesture; }
-                if (gesture.Name == "seki") //風邪
-                { seki = gesture; }
-                if (gesture.Name == "agohige") //好き
-                { agohige = gesture; }
+                if (gesture.Name == "nomu") //飲む
+                { nomu = gesture; }
+                if (gesture.Name == "kaze") //風邪
+                { kaze = gesture; }
+                if (gesture.Name == "siawase") //好き
+                { siawase = gesture; }
                 if (gesture.Name == "atumeru") //集める（胸付近を両手で仰ぐ）
                 { atumeru = gesture; }
                 if (gesture.Name == "konnitiwa") //こんにちは（額でチョキをする）
                 { konnitiwa = gesture; }
                 if (gesture.Name == "netu") //熱（額でパーをする）
                 { netu = gesture; }
-                if (gesture.Name == "ohayo_pose") //おはよう（頭の横でグーをする）
-                { ohayo_pose = gesture; }
+                if (gesture.Name == "ohayos") //おはよう（頭の横でグーをする）
+                { ohayos = gesture; }
                 if (gesture.Name == "sayonara_ges") //さようならジェスチャー（頭の真横が１、遠ざけると０）
                 { sayonara_ges = gesture; }
                 if (gesture.Name == "urayamasii") //うらやましい（右胸付近で自分を人差し指で指す）
                 { urayamasii = gesture; }
-                if (gesture.Name == "urusai") //うるさい（右耳に人差し指をいれる）
-                { urusai = gesture; }
+                if (gesture.Name == "urusais") //うるさい（右耳に人差し指をいれる）
+                { urusais = gesture; }
                 if (gesture.Name == "wakaranai") //わからない（口元でパーをする）
                 { wakaranai = gesture; }
-                if (gesture.Name == "wakarimasita_ges") //わかりましたジェスチャー（お腹を上下にさする）
-                { wakarimasita_ges = gesture; }
+                //if (gesture.Name == "wakarimasita_ges") //わかりましたジェスチャー（お腹を上下にさする）
+                //{ wakarimasita_ges = gesture; }
                 this.gestureFrameSource.AddGesture(gesture);
             }
 
@@ -414,28 +416,29 @@ namespace WorkManagementApp
                 // ジェスチャーの判定結果がある場合
                 if (gestureFrame != null && gestureFrame.DiscreteGestureResults != null)
                 {
-                    //Discrete
+                    /* Discrete
                     var resultSeat = gestureFrame.DiscreteGestureResults[seat];
                     var resultRPP = gestureFrame.DiscreteGestureResults[right_playphone];
                     var resultLPP = gestureFrame.DiscreteGestureResults[left_playphone];
+                    */
 
                     //Discrete : handsign
-                    var result = gestureFrame.DiscreteGestureResults[seki];
-                    var result2 = gestureFrame.DiscreteGestureResults[agohige];
-                    var result3 = gestureFrame.DiscreteGestureResults[drink];
+                    var result = gestureFrame.DiscreteGestureResults[kaze];
+                    var result2 = gestureFrame.DiscreteGestureResults[siawase];
+                    var result3 = gestureFrame.DiscreteGestureResults[nomu];
                     var result4 = gestureFrame.DiscreteGestureResults[atumeru];
                     var result5 = gestureFrame.DiscreteGestureResults[konnitiwa];
                     var result6 = gestureFrame.DiscreteGestureResults[netu];
-                    var result7 = gestureFrame.DiscreteGestureResults[ohayo_pose];
+                    var result7 = gestureFrame.DiscreteGestureResults[ohayos];
                     var result8 = gestureFrame.DiscreteGestureResults[urayamasii];
-                    var result9 = gestureFrame.DiscreteGestureResults[urusai];
+                    var result9 = gestureFrame.DiscreteGestureResults[urusais];
                     var result10 = gestureFrame.DiscreteGestureResults[wakaranai];
 
                     //Continuous : handsign
                     var progressResult = gestureFrame.ContinuousGestureResults[sayonara_ges];
-                    var progressResult2 = gestureFrame.ContinuousGestureResults[wakarimasita_ges];
+                    //var progressResult2 = gestureFrame.ContinuousGestureResults[wakarimasita_ges];
 
-                    textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
+                    //textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
                     textBlock1.Text = "咳：" + result.Confidence.ToString();
                     textBlock2.Text = "あごひげ：" + result2.Confidence.ToString();
                     textBlock3.Text = "飲む：" + result3.Confidence.ToString();
@@ -447,9 +450,9 @@ namespace WorkManagementApp
                     textBlock9.Text = "うるさい：" + result9.Confidence.ToString();
                     textBlock10.Text = "わからない：" + result10.Confidence.ToString();
                     textBlock11.Text = "さようならges：" + progressResult.Progress.ToString();
-                    textBlock12.Text = "わかりましたges：" + progressResult2.Progress.ToString();
+                    //textBlock12.Text = "わかりましたges：" + progressResult2.Progress.ToString();
 
-                    //作業してるとき（座っている動作）
+                    /*作業してるとき（座っている動作）
                     if (0.8 < resultSeat.Confidence)
                     {
                         Sw_seat(true);
@@ -475,41 +478,42 @@ namespace WorkManagementApp
                         Sw_playphoneR(false);
                         checkText1.Text = "集中していません";
                     }
+                    */
 
                     //咳をする動作
                     if ((0.4 < result.Confidence && 0.3 > result2.Confidence && 0.5 > result3.Confidence) || 
                         (0.8 < result.Confidence && 0.8 < result3.Confidence)) 
                     {
-                        Sw_seki(true);  
+                        Sw_kaze(true);  
                     }
                     else
                     {
-                        seki_time = 0;
+                        kaze_time = 0;
                     }
 
                     //あごひげの動作
                     if ((0.3 <= result2.Confidence && 0.4 > result.Confidence && 0.5 > result3.Confidence) ||
                         (0.9 < result2.Confidence))
                     {
-                        Sw_agohige(true);
+                        Sw_siawase(true);
                     }
                     else
                     {
-                        agohige_time = 0;
+                        siawase_time = 0;
                     }
 
                     //飲む動作
-                    if (result3.Confidence >= 0.5 && 0.4 > result.Confidence && 0.3 > result2.Confidence && 0.9 > result6.Confidence)
+                    if (result3.Confidence >= 0.7 && 0.4 > result.Confidence && 0.3 > result2.Confidence && 0.9 > result6.Confidence)
                     {
-                        Sw_drink(true);
+                        Sw_nomu(true);
                     }
                     else
                     {
-                        drink_time = 0;
+                        nomu_time = 0;
                     }
 
                     //集める動作
-                    if (result4.Confidence >= 0.3)
+                    if (result4.Confidence >= 0.4 && result8.Confidence <= 0.47)
                     {
                         Sw_atumeru(true);
                     }
@@ -528,7 +532,7 @@ namespace WorkManagementApp
                         konnitiha_time = 0;
                     }
 
-                    if (result6.Confidence >= 0.99)
+                    if (result6.Confidence >= 1)
                     {
                         Sw_netu(true);
                     }
@@ -546,7 +550,8 @@ namespace WorkManagementApp
                         ohayo_time = 0;
                     }
 
-                    if (result8.Confidence >= 0.6)
+                    //羨ましい
+                    if (result8.Confidence >= 0.47 && result4.Confidence <= 0.4)
                     {
                         Sw_urayamasii(true);
                     }
@@ -557,11 +562,11 @@ namespace WorkManagementApp
 
                     if (result9.Confidence >= 0.3)
                     {
-                        Sw_urusai(true);
+                        Sw_urusais(true);
                     }
                     else
                     {
-                        urusai_time = 0;
+                        urusais_time = 0;
                     }
 
                     if (result10.Confidence >= 0.2)
@@ -644,14 +649,14 @@ namespace WorkManagementApp
             }
         }
 
-        private void Sw_drink(bool drink_flag)
+        private void Sw_nomu(bool nomu_flag)
         {
-            if (drink_flag)
+            if (nomu_flag)
             {
-                drink_time++;
-                drink_total++;
+                nomu_time++;
+                nomu_total++;
 
-                if (drink_time == 20)
+                if (nomu_time == 20)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "飲む動作");
 
@@ -659,19 +664,19 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (drink_time >= 400)
-                    drink_time = 0;
+                if (nomu_time >= 400)
+                    nomu_time = 0;
             }
         }
 
-        private void Sw_seki(bool seki_flag)
+        private void Sw_kaze(bool kaze_flag)
         {
-            if (seki_flag)
+            if (kaze_flag)
             {
-                seki_time++;
-                seki_total++;
+                kaze_time++;
+                kaze_total++;
 
-                if (seki_time == 40)
+                if (kaze_time == 40)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "咳の手話");
 
@@ -679,20 +684,20 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (seki_time >= 250)
-                    seki_time = 0;
+                if (kaze_time >= 250)
+                    kaze_time = 0;
 
             }
         }
 
-        private void Sw_agohige(bool agohige_flag)
+        private void Sw_siawase(bool siawase_flag)
         {
-            if (agohige_flag)
+            if (siawase_flag)
             {
-                agohige_time++;
-                agohige_total++;
+                siawase_time++;
+                siawase_total++;
 
-                if (agohige_time == 20)
+                if (siawase_time == 20)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "あごひげの手話");
 
@@ -701,8 +706,8 @@ namespace WorkManagementApp
 
                 }
 
-                if (agohige_time >= 350)
-                    agohige_time = 0;
+                if (siawase_time >= 350)
+                    siawase_time = 0;
 
             }
 
@@ -786,7 +791,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (ohayo_time >= 800)
+                if (ohayo_time >= 1400)
                     ohayo_time = 0;
             }
 
@@ -813,14 +818,14 @@ namespace WorkManagementApp
 
         }
 
-        private void Sw_urusai(bool urusai_flag)
+        private void Sw_urusais(bool urusais_flag)
         {
-            if (urusai_flag)
+            if (urusais_flag)
             {
-                urusai_time++;
-                urusai_total++;
+                urusais_time++;
+                urusais_total++;
 
-                if (urusai_time == 10)
+                if (urusais_time == 10)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "うるさいの手話");
 
@@ -828,8 +833,8 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urusai_time >= 250)
-                    urusai_time = 0;
+                if (urusais_time >= 250)
+                    urusais_time = 0;
             }
 
         }
@@ -1018,16 +1023,16 @@ namespace WorkManagementApp
 
         public void BtnTotalCount(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("drink：" + drink_total + "ms");
-            Console.WriteLine("agohige：" + agohige_total + "ms");
-            Console.WriteLine("seki：" + seki_total + "ms");
+            Console.WriteLine("nomu：" + nomu_total + "ms");
+            Console.WriteLine("siawase：" + siawase_total + "ms");
+            Console.WriteLine("kaze：" + kaze_total + "ms");
             Console.WriteLine("sayonara：" + sayonara_total + "ms");
             Console.WriteLine("atumeru：" + atumeru_total + "ms");
             Console.WriteLine("konnitiha：" + konnitiha_total + "ms");
             Console.WriteLine("netu：" + netu_total + "ms");
             Console.WriteLine("ohayo：" + ohayo_total + "ms");
             Console.WriteLine("urayamasii：" + urayamasii_total + "ms");
-            Console.WriteLine("urusai：" + urusai_total + "ms");
+            Console.WriteLine("urusais：" + urusais_total + "ms");
             Console.WriteLine("wakaranai：" + wakaranai_total + "ms");
         }
     }
