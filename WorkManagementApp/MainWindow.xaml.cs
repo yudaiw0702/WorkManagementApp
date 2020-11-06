@@ -440,7 +440,7 @@ namespace WorkManagementApp
 
                     //textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
                     textBlock1.Text = "咳：" + result.Confidence.ToString();
-                    textBlock2.Text = "あごひげ：" + result2.Confidence.ToString();
+                    textBlock2.Text = "幸せ：" + result2.Confidence.ToString();
                     textBlock3.Text = "飲む：" + result3.Confidence.ToString();
                     textBlock4.Text = "集める：" + result4.Confidence.ToString();
                     textBlock5.Text = "こんにちは：" + result5.Confidence.ToString();
@@ -491,8 +491,8 @@ namespace WorkManagementApp
                         kaze_time = 0;
                     }
 
-                    //あごひげの動作
-                    if ((0.3 <= result2.Confidence && 0.4 > result.Confidence && 0.5 > result3.Confidence) ||
+                    //幸せの動作
+                    if ((0.23 <= result2.Confidence && 0.4 > result.Confidence && 0.5 > result3.Confidence) ||
                         (0.9 < result2.Confidence))
                     {
                         Sw_siawase(true);
@@ -523,7 +523,7 @@ namespace WorkManagementApp
                     }
 
                     //こんにちは
-                    if (result5.Confidence >= 0.4)
+                    if (result5.Confidence >= 0.7)
                     {
                         Sw_konnitiha(true);
                     }
@@ -532,6 +532,7 @@ namespace WorkManagementApp
                         konnitiha_time = 0;
                     }
 
+                    //熱
                     if (result6.Confidence >= 1)
                     {
                         Sw_netu(true);
@@ -541,6 +542,7 @@ namespace WorkManagementApp
                         netu_time = 0;
                     }
 
+                    //おはよう
                     if (result7.Confidence >= 0.6)
                     {
                         Sw_ohayo(true);
@@ -551,7 +553,7 @@ namespace WorkManagementApp
                     }
 
                     //羨ましい
-                    if (result8.Confidence >= 0.47 && result4.Confidence <= 0.4)
+                    if (result8.Confidence >= 0.6 && result4.Confidence <= 0.4　&& result2.Confidence <= 0.02)
                     {
                         Sw_urayamasii(true);
                     }
@@ -560,7 +562,8 @@ namespace WorkManagementApp
                         urayamasii_time = 0;
                     }
 
-                    if (result9.Confidence >= 0.3)
+                    //うるさい
+                    if (result9.Confidence >= 1 && result2.Confidence <= 0.2 && result5.Confidence <= 0.7)
                     {
                         Sw_urusais(true);
                     }
@@ -569,7 +572,8 @@ namespace WorkManagementApp
                         urusais_time = 0;
                     }
 
-                    if (result10.Confidence >= 0.2)
+                    //わからない
+                    if (result10.Confidence >= 0.5)
                     {
                         Sw_wakaranai(true);
                     }
@@ -791,7 +795,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (ohayo_time >= 1400)
+                if (ohayo_time >= 2000)
                     ohayo_time = 0;
             }
 
@@ -804,7 +808,7 @@ namespace WorkManagementApp
                 urayamasii_time++;
                 urayamasii_total++;
 
-                if (urayamasii_time == 10)
+                if (urayamasii_time == 20)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "羨ましいの手話");
 
@@ -812,7 +816,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urayamasii_time >= 250)
+                if (urayamasii_time >= 500)
                     urayamasii_time = 0;
             }
 
@@ -825,7 +829,7 @@ namespace WorkManagementApp
                 urusais_time++;
                 urusais_total++;
 
-                if (urusais_time == 10)
+                if (urusais_time == 50)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "うるさいの手話");
 
@@ -833,7 +837,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urusais_time >= 250)
+                if (urusais_time >= 2000)
                     urusais_time = 0;
             }
 
