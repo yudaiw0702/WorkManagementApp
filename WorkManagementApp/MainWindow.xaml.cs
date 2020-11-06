@@ -480,7 +480,7 @@ namespace WorkManagementApp
                     }
                     */
 
-                    //咳をする動作
+                    //咳をする動作 要調整
                     if ((0.4 < result.Confidence && 0.3 > result2.Confidence && 0.5 > result3.Confidence) || 
                         (0.8 < result.Confidence && 0.8 < result3.Confidence)) 
                     {
@@ -503,7 +503,7 @@ namespace WorkManagementApp
                     }
 
                     //飲む動作
-                    if (result3.Confidence >= 0.7 && 0.4 > result.Confidence && 0.3 > result2.Confidence && 0.9 > result6.Confidence)
+                    if (result3.Confidence >= 0.7)
                     {
                         Sw_nomu(true);
                     }
@@ -553,7 +553,7 @@ namespace WorkManagementApp
                     }
 
                     //羨ましい
-                    if (result8.Confidence >= 0.6 && result4.Confidence <= 0.4　&& result2.Confidence <= 0.02)
+                    if (result8.Confidence >= 0.6 && result4.Confidence <= 0.4　&& result2.Confidence <= 0.2)
                     {
                         Sw_urayamasii(true);
                     }
@@ -563,7 +563,7 @@ namespace WorkManagementApp
                     }
 
                     //うるさい
-                    if (result9.Confidence >= 1 && result2.Confidence <= 0.2 && result5.Confidence <= 0.7)
+                    if (result9.Confidence >= 1 && result2.Confidence <= 0.2 && result5.Confidence <= 0.7 && result6.Confidence <= 0.8)
                     {
                         Sw_urusais(true);
                     }

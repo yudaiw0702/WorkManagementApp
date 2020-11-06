@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:WorkManagementApp" 
-        mc:Ignorable="d" Title="作業管理アプリ" Height="853.05" Width="512">
+        mc:Ignorable="d" Title="作業管理アプリ" Height="832.05" Width="512">
 
     <Grid x:Name="LayoutRoot" RenderTransformOrigin="0.552,0.669" Margin="0,0,0,-6">
         <Grid.RowDefinitions>
@@ -36,7 +36,6 @@
         <TextBlock x:Name="textBlock9" HorizontalAlignment="Left" TextWrapping="Wrap" Text="うるさい" VerticalAlignment="Top" Margin="15,699,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock10" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わからない" VerticalAlignment="Top" Margin="15,731,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock11" HorizontalAlignment="Left" TextWrapping="Wrap" Text="さようならジェスチャ" VerticalAlignment="Top" Margin="15,763,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" TextWrapping="Wrap" Text="わかりましたジェスチャ" VerticalAlignment="Top" Margin="15,790,0,0" FontSize="20" Height="27" Width="380"/>
         <Button x:Name="button" Content="Start" HorizontalAlignment="Left" Margin="320,174,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.36,0.15" Click="MusicStart" Grid.RowSpan="3"/>
         <Button x:Name="button1" Content="Stop" HorizontalAlignment="Left" Margin="400,173,0,0" VerticalAlignment="Top" Width="75" Click="MusicStop" RenderTransformOrigin="1.413,0.4"/>
         <TextBlock x:Name="textBlock13" HorizontalAlignment="Left" Margin="358,153,0,0" TextWrapping="Wrap" Text="集中できる音楽" VerticalAlignment="Top"/>
