@@ -25,8 +25,8 @@
         <Label x:Name="lblTime" Content="00:00" HorizontalAlignment="Left" Height="81" Margin="22,19,0,0" VerticalAlignment="Top" Width="282" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="65" RenderTransformOrigin="0.497,0.529"/>
 
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="座ってる動作" VerticalAlignment="Top" Margin="15,416,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="咳" VerticalAlignment="Top" Margin="15,453,0,0" FontSize="20" Height="27" Width="380"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="あごひげ" VerticalAlignment="Top" Margin="15,480,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="風邪" VerticalAlignment="Top" Margin="15,453,0,0" FontSize="20" Height="27" Width="380"/>
+        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="幸せ" VerticalAlignment="Top" Margin="15,480,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="飲む" VerticalAlignment="Top" Margin="15,512,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="集める" VerticalAlignment="Top" Margin="15,544,0,0" FontSize="20" Height="27" Width="380"/>
         <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="こんにちは" VerticalAlignment="Top" Margin="15,576,0,0" FontSize="20" Height="27" Width="380"/>

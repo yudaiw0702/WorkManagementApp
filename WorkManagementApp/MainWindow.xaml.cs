@@ -327,7 +327,7 @@ namespace WorkManagementApp
                 { nomu = gesture; }
                 if (gesture.Name == "kaze") //風邪
                 { kaze = gesture; }
-                if (gesture.Name == "siawase") //好き
+                if (gesture.Name == "siawase") //幸せ
                 { siawase = gesture; }
                 if (gesture.Name == "atumeru") //集める（胸付近を両手で仰ぐ）
                 { atumeru = gesture; }
@@ -439,7 +439,7 @@ namespace WorkManagementApp
                     //var progressResult2 = gestureFrame.ContinuousGestureResults[wakarimasita_ges];
 
                     //textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
-                    textBlock1.Text = "咳：" + result.Confidence.ToString();
+                    textBlock1.Text = "風邪：" + result.Confidence.ToString();
                     textBlock2.Text = "幸せ：" + result2.Confidence.ToString();
                     textBlock3.Text = "飲む：" + result3.Confidence.ToString();
                     textBlock4.Text = "集める：" + result4.Confidence.ToString();
@@ -481,10 +481,9 @@ namespace WorkManagementApp
                     */
 
                     //咳をする動作 反応しない
-                    if ((0.4 < result.Confidence && 0.3 > result2.Confidence && 0.5 > result3.Confidence) || 
-                        (0.8 < result.Confidence && 0.8 < result3.Confidence)) 
+                    if (result.Confidence >= 0.3 && result3.Confidence <= 0.2 && result9.Confidence <= 0.1)
                     {
-                        Sw_kaze(true);  
+                        Sw_kaze(true);
                     }
                     else
                     {
@@ -492,8 +491,7 @@ namespace WorkManagementApp
                     }
 
                     //幸せの動作
-                    if ((0.23 <= result2.Confidence && 0.4 > result.Confidence && 0.5 > result3.Confidence) ||
-                        (0.9 < result2.Confidence))
+                    if (result2.Confidence >= 0.23 && result3.Confidence <= 0.2 && result8.Confidence <= 0.45)
                     {
                         Sw_siawase(true);
                     }
@@ -502,7 +500,7 @@ namespace WorkManagementApp
                         siawase_time = 0;
                     }
 
-                    //飲む動作 幸せがよく絡む
+                    //飲む動作 幸せ風邪がよく絡む
                     if (result3.Confidence >= 0.5)
                     {
                         Sw_nomu(true);
@@ -523,7 +521,7 @@ namespace WorkManagementApp
                     }
 
                     //こんにちは
-                    if (result5.Confidence >= 0.7)
+                    if (result5.Confidence >= 0.7 && result9.Confidence <= 0.1)
                     {
                         Sw_konnitiha(true);
                     }
@@ -542,8 +540,8 @@ namespace WorkManagementApp
                         netu_time = 0;
                     }
 
-                    //おはよう
-                    if (result7.Confidence >= 0.6)
+                    //おはよう 
+                    if (result7.Confidence >= 0.6 && result.Confidence <= 0.3)
                     {
                         Sw_ohayo(true);
                     }
@@ -553,7 +551,7 @@ namespace WorkManagementApp
                     }
 
                     //羨ましい
-                    if (result8.Confidence >= 0.6 && result4.Confidence <= 0.4　&& result2.Confidence <= 0.2)
+                    if (result8.Confidence >= 0.55 && result4.Confidence <= 0.4　&& result2.Confidence <= 0.6 && result9.Confidence <= 0.1)
                     {
                         Sw_urayamasii(true);
                     }
@@ -563,7 +561,7 @@ namespace WorkManagementApp
                     }
 
                     //うるさい
-                    if (result9.Confidence >= 0.2)
+                    if (result9.Confidence >= 0.15)
                     {
                         Sw_urusais(true);
                     }
@@ -573,7 +571,7 @@ namespace WorkManagementApp
                     }
 
                     //わからない
-                    if (result10.Confidence >= 0.5)
+                    if (result10.Confidence >= 0.2)
                     {
                         Sw_wakaranai(true);
                     }
@@ -680,7 +678,7 @@ namespace WorkManagementApp
                 kaze_time++;
                 kaze_total++;
 
-                if (kaze_time == 40)
+                if (kaze_time == 10)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "風邪の手話");
 
@@ -795,7 +793,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (ohayo_time >= 2000)
+                if (ohayo_time >= 5000)
                     ohayo_time = 0;
             }
 
@@ -829,7 +827,7 @@ namespace WorkManagementApp
                 urusais_time++;
                 urusais_total++;
 
-                if (urusais_time == 50)
+                if (urusais_time == 10)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "うるさいの手話");
 
@@ -837,7 +835,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urusais_time >= 2000)
+                if (urusais_time >= 200)
                     urusais_time = 0;
             }
 
