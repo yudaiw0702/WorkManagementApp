@@ -480,7 +480,7 @@ namespace WorkManagementApp
                     }
                     */
 
-                    //咳をする動作 要調整
+                    //咳をする動作 反応しない
                     if ((0.4 < result.Confidence && 0.3 > result2.Confidence && 0.5 > result3.Confidence) || 
                         (0.8 < result.Confidence && 0.8 < result3.Confidence)) 
                     {
@@ -502,8 +502,8 @@ namespace WorkManagementApp
                         siawase_time = 0;
                     }
 
-                    //飲む動作
-                    if (result3.Confidence >= 0.7)
+                    //飲む動作 幸せがよく絡む
+                    if (result3.Confidence >= 0.5)
                     {
                         Sw_nomu(true);
                     }
@@ -533,7 +533,7 @@ namespace WorkManagementApp
                     }
 
                     //熱
-                    if (result6.Confidence >= 1)
+                    if (result6.Confidence >= 0.5)
                     {
                         Sw_netu(true);
                     }
@@ -563,7 +563,7 @@ namespace WorkManagementApp
                     }
 
                     //うるさい
-                    if (result9.Confidence >= 1 && result2.Confidence <= 0.2 && result5.Confidence <= 0.7 && result6.Confidence <= 0.8)
+                    if (result9.Confidence >= 0.2)
                     {
                         Sw_urusais(true);
                     }
@@ -682,9 +682,9 @@ namespace WorkManagementApp
 
                 if (kaze_time == 40)
                 {
-                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "咳の手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "風邪の手話");
 
-                    var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/seki.wav");
+                    var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/kaze.wav");
                     audio.Play();
                 }
 
@@ -703,7 +703,7 @@ namespace WorkManagementApp
 
                 if (siawase_time == 20)
                 {
-                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "あごひげの手話");
+                    Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "幸せの手話");
 
                     var audio = new Audio(@"C:\Users\yudai\source\repos\WorkManagementApp\WorkManagementApp/Sound/siawase.wav");
                     audio.Play();
