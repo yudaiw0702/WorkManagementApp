@@ -438,18 +438,31 @@ namespace WorkManagementApp
                     var progressResult = gestureFrame.ContinuousGestureResults[sayonara_ges];
                     //var progressResult2 = gestureFrame.ContinuousGestureResults[wakarimasita_ges];
 
+                    //ジェスチャー判定のしきい値
+                    var kazeLimit = 0.3;
+                    var siawaseLimit = 0.23;
+                    var nomuLimit = 0.5;
+                    var atumeruLimit = 0.4;
+                    var konnitihaLimit = 0.7;
+                    var netuLimit = 0.5;
+                    var ohayoLimit = 0.6;
+                    var urayamasiiLimit = 0.55;
+                    var urusaiLimit = 0.15;
+                    var wakaranaiLimit = 0.2;
+                    var sayonaraLimit = 0.2;
+
                     //textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
-                    textBlock1.Text = "風邪：" + result.Confidence.ToString();
-                    textBlock2.Text = "幸せ：" + result2.Confidence.ToString();
-                    textBlock3.Text = "飲む：" + result3.Confidence.ToString();
-                    textBlock4.Text = "集める：" + result4.Confidence.ToString();
-                    textBlock5.Text = "こんにちは：" + result5.Confidence.ToString();
-                    textBlock6.Text = "熱：" + result6.Confidence.ToString();
-                    textBlock7.Text = "おはよう：" + result7.Confidence.ToString();
-                    textBlock8.Text = "羨ましい：" + result8.Confidence.ToString();
-                    textBlock9.Text = "うるさい：" + result9.Confidence.ToString();
-                    textBlock10.Text = "わからない：" + result10.Confidence.ToString();
-                    textBlock11.Text = "さようならges：" + progressResult.Progress.ToString();
+                    textBlock1.Text = "風邪：" + kazeLimit + " / " + result.Confidence.ToString();
+                    textBlock2.Text = "幸せ：" + siawaseLimit + " / " + result2.Confidence.ToString();
+                    textBlock3.Text = "飲む：" + nomuLimit + " / " + result3.Confidence.ToString();
+                    textBlock4.Text = "集める：" + atumeruLimit + " / " + result4.Confidence.ToString();
+                    textBlock5.Text = "こんにちは：" + konnitihaLimit + " / " + result5.Confidence.ToString();
+                    textBlock6.Text = "熱：" + netuLimit + " / " + result6.Confidence.ToString();
+                    textBlock7.Text = "おはよう：" + ohayoLimit + " / " + result7.Confidence.ToString();
+                    textBlock8.Text = "羨ましい：" + urayamasiiLimit + " / " + result8.Confidence.ToString();
+                    textBlock9.Text = "うるさい：" + urusaiLimit + " / " + result9.Confidence.ToString();
+                    textBlock10.Text = "わからない：" + wakaranaiLimit + " / " + result10.Confidence.ToString();
+                    textBlock11.Text = "さようならges：" + sayonaraLimit + " / " + progressResult.Progress.ToString();
                     //textBlock12.Text = "わかりましたges：" + progressResult2.Progress.ToString();
 
                     /*作業してるとき（座っている動作）
@@ -480,8 +493,8 @@ namespace WorkManagementApp
                     }
                     */
 
-                    //咳をする動作 反応しない
-                    if (result.Confidence >= 0.3 && result3.Confidence <= 0.2 && result9.Confidence <= 0.1)
+                    //咳をする動作 口まわり以外でも動作する
+                    if (result.Confidence >= kazeLimit && result3.Confidence <= 0.2 && result9.Confidence <= 0.1)
                     {
                         Sw_kaze(true);
                     }
@@ -491,7 +504,7 @@ namespace WorkManagementApp
                     }
 
                     //幸せの動作
-                    if (result2.Confidence >= 0.23 && result3.Confidence <= 0.2 && result8.Confidence <= 0.45)
+                    if (result2.Confidence >= siawaseLimit && result3.Confidence <= 0.2 && result8.Confidence <= 0.45)
                     {
                         Sw_siawase(true);
                     }
@@ -501,7 +514,7 @@ namespace WorkManagementApp
                     }
 
                     //飲む動作 幸せ風邪がよく絡む
-                    if (result3.Confidence >= 0.5)
+                    if (result3.Confidence >= nomuLimit)
                     {
                         Sw_nomu(true);
                     }
@@ -511,7 +524,7 @@ namespace WorkManagementApp
                     }
 
                     //集める動作
-                    if (result4.Confidence >= 0.4 && result8.Confidence <= 0.47)
+                    if (result4.Confidence >= atumeruLimit && result8.Confidence <= 0.47)
                     {
                         Sw_atumeru(true);
                     }
@@ -521,7 +534,7 @@ namespace WorkManagementApp
                     }
 
                     //こんにちは
-                    if (result5.Confidence >= 0.7 && result9.Confidence <= 0.1)
+                    if (result5.Confidence >= konnitihaLimit && result9.Confidence <= 0.1)
                     {
                         Sw_konnitiha(true);
                     }
@@ -531,7 +544,7 @@ namespace WorkManagementApp
                     }
 
                     //熱
-                    if (result6.Confidence >= 0.5)
+                    if (result6.Confidence >= netuLimit)
                     {
                         Sw_netu(true);
                     }
@@ -541,7 +554,7 @@ namespace WorkManagementApp
                     }
 
                     //おはよう 
-                    if (result7.Confidence >= 0.6 && result.Confidence <= 0.3)
+                    if (result7.Confidence >= ohayoLimit && result.Confidence <= 0.3)
                     {
                         Sw_ohayo(true);
                     }
@@ -551,7 +564,7 @@ namespace WorkManagementApp
                     }
 
                     //羨ましい
-                    if (result8.Confidence >= 0.55 && result4.Confidence <= 0.4　&& result2.Confidence <= 0.6 && result9.Confidence <= 0.1)
+                    if (result8.Confidence >= urayamasiiLimit && result4.Confidence <= 0.4　&& result2.Confidence <= 0.6 && result9.Confidence <= 0.1)
                     {
                         Sw_urayamasii(true);
                     }
@@ -561,7 +574,7 @@ namespace WorkManagementApp
                     }
 
                     //うるさい
-                    if (result9.Confidence >= 0.15)
+                    if (result9.Confidence >= urusaiLimit)
                     {
                         Sw_urusais(true);
                     }
@@ -571,7 +584,7 @@ namespace WorkManagementApp
                     }
 
                     //わからない
-                    if (result10.Confidence >= 0.2)
+                    if (result10.Confidence >= wakaranaiLimit)
                     {
                         Sw_wakaranai(true);
                     }
@@ -581,7 +594,7 @@ namespace WorkManagementApp
                     }
 
                     //さようならのジェスチャー
-                    if (progressResult.Progress < 0.2)
+                    if (progressResult.Progress < sayonaraLimit)
                     {
                         Sw_sayonara(true);
                     }
@@ -666,7 +679,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (nomu_time >= 400)
+                if (nomu_time >= 5000)
                     nomu_time = 0;
             }
         }
@@ -686,7 +699,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (kaze_time >= 250)
+                if (kaze_time >= 5000)
                     kaze_time = 0;
 
             }
@@ -708,7 +721,7 @@ namespace WorkManagementApp
 
                 }
 
-                if (siawase_time >= 350)
+                if (siawase_time >= 5000)
                     siawase_time = 0;
 
             }
@@ -730,7 +743,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (atumeru_time >= 600)
+                if (atumeru_time >= 5000)
                 atumeru_time = 0;
             }
 
@@ -751,7 +764,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (konnitiha_time >= 250)
+                if (konnitiha_time >= 5000)
                     konnitiha_time = 0;
             }
 
@@ -772,7 +785,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (netu_time >= 250)
+                if (netu_time >= 5000)
                     netu_time = 0;
             }
 
@@ -814,7 +827,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urayamasii_time >= 500)
+                if (urayamasii_time >= 5000)
                     urayamasii_time = 0;
             }
 
@@ -835,7 +848,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urusais_time >= 200)
+                if (urusais_time >= 5000)
                     urusais_time = 0;
             }
 
@@ -857,7 +870,7 @@ namespace WorkManagementApp
 
                 }
 
-                if (wakaranai_time >= 250)
+                if (wakaranai_time >= 5000)
                     wakaranai_time = 0;
             }
 
@@ -893,7 +906,7 @@ namespace WorkManagementApp
                     sayonaraflag_ges = false;
 
                 }
-                if (sayonara_time >= 250)
+                if (sayonara_time >= 5000)
                     sayonara_time = 0;
             }
         }
