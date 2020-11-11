@@ -439,16 +439,16 @@ namespace WorkManagementApp
                     //var progressResult2 = gestureFrame.ContinuousGestureResults[wakarimasita_ges];
 
                     //ジェスチャー判定のしきい値
-                    var kazeLimit = 0.3;
+                    var kazeLimit = 0.2;
                     var siawaseLimit = 0.23;
                     var nomuLimit = 0.5;
                     var atumeruLimit = 0.4;
                     var konnitihaLimit = 0.7;
                     var netuLimit = 0.5;
-                    var ohayoLimit = 0.6;
+                    var ohayoLimit = 0.5;
                     var urayamasiiLimit = 0.55;
                     var urusaiLimit = 0.15;
-                    var wakaranaiLimit = 0.2;
+                    var wakaranaiLimit = 0.4;
                     var sayonaraLimit = 0.2;
 
                     //textBlock.Text = "座ってる動作：" + resultSeat.Confidence.ToString();
@@ -494,7 +494,7 @@ namespace WorkManagementApp
                     */
 
                     //咳をする動作 口まわり以外でも動作する
-                    if (result.Confidence >= kazeLimit && result3.Confidence <= 0.2 && result9.Confidence <= 0.1)
+                    if (result.Confidence >= kazeLimit && result3.Confidence <= 0.2 && result9.Confidence <= 0.1 && result10.Confidence <= wakaranaiLimit)
                     {
                         Sw_kaze(true);
                     }
@@ -554,7 +554,7 @@ namespace WorkManagementApp
                     }
 
                     //おはよう 
-                    if (result7.Confidence >= ohayoLimit && result.Confidence <= 0.3)
+                    if (result7.Confidence >= ohayoLimit && result.Confidence <= 0.05)
                     {
                         Sw_ohayo(true);
                     }
@@ -735,7 +735,7 @@ namespace WorkManagementApp
                 atumeru_time++;
                 atumeru_total++;
 
-                if (atumeru_time == 30)
+                if (atumeru_time == 10)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "集めるの手話");
 
@@ -798,7 +798,7 @@ namespace WorkManagementApp
                 ohayo_time++;
                 ohayo_total++;
 
-                if (ohayo_time == 10)
+                if (ohayo_time == 20)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "おはようの手話");
 
@@ -848,7 +848,7 @@ namespace WorkManagementApp
                     audio.Play();
                 }
 
-                if (urusais_time >= 5000)
+                if (urusais_time >= 10000)
                     urusais_time = 0;
             }
 
