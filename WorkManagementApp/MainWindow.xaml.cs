@@ -445,7 +445,7 @@ namespace WorkManagementApp
                     var atumeruLimit = 0.4;
                     var konnitihaLimit = 0.7;
                     var netuLimit = 0.5;
-                    var ohayoLimit = 0.5;
+                    var ohayoLimit = 0.4;
                     var urayamasiiLimit = 0.55;
                     var urusaiLimit = 0.15;
                     var wakaranaiLimit = 0.4;
@@ -798,7 +798,7 @@ namespace WorkManagementApp
                 ohayo_time++;
                 ohayo_total++;
 
-                if (ohayo_time == 20)
+                if (ohayo_time == 10)
                 {
                     Console.WriteLine("[" + System.DateTime.Now.ToString() + "]" + "おはようの手話");
 
